@@ -108,12 +108,10 @@ app.get("/appointments",(req,res)=>{
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/patients.html"));
+  res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+// Update Patient
 app.put("/patients/:id", (req, res) => {
 
     const id = req.params.id;
@@ -128,13 +126,34 @@ app.put("/patients/:id", (req, res) => {
         }
     );
 });
+
+// Delete Patient
 app.delete("/patients/:id", (req, res) => {
 
     const id = req.params.id;
 
-    db.query("DELETE FROM patients WHERE id=?", [id], (err) => {
-        if (err) return res.send(err);
-        res.send("Deleted");
-    });
+    db.query(
+        "DELETE FROM appointments WHERE patient_id=?",
+        [id],
+        (err) => {
 
+            if (err) return res.send(err);
+
+            db.query(
+                "DELETE FROM patients WHERE id=?",
+                [id],
+                (err) => {
+
+                    if (err) return res.send(err);
+
+                    res.send("Patient Deleted");
+                }
+            );
+        }
+    );
+});
+
+// START SERVER (ALWAYS LAST)
+app.listen(3000, () => {
+    console.log("Server running on http://localhost:3000");
 });

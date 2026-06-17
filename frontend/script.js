@@ -1,3 +1,10 @@
+if (
+    window.location.pathname.includes("dashboard.html")
+    &&
+    localStorage.getItem("loggedIn") !== "true"
+){
+    window.location.href = "login.html";
+}
 const API = "http://localhost:3000";
 
 // Add Patient
@@ -25,6 +32,7 @@ document.getElementById("patientForm")?.addEventListener("submit", async (e) => 
 });
 
 // Load Patients
+// Load Patients
 async function loadPatients() {
     const res = await fetch(`${API}/patients`);
     const data = await res.json();
@@ -37,21 +45,21 @@ async function loadPatients() {
 
     data.forEach(patient => {
         table.innerHTML += `
-            
+            <tr>
                 <td>${patient.id}</td>
                 <td>${patient.name}</td>
                 <td>${patient.age}</td>
                 <td>${patient.gender}</td>
                 <td>${patient.phone}</td>
                 <td>
-        <button onclick="editPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
-            Edit
-        </button>
+                    <button onclick="editPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
+                        Edit
+                    </button>
 
-        <button onclick="deletePatient(${patient.id})">
-            Delete
-        </button>
-    </td>
+                    <button onclick="deletePatient(${patient.id})">
+                        Delete
+                    </button>
+                </td>
             </tr>
         `;
     });
@@ -249,4 +257,10 @@ async function deletePatient(id) {
     } catch (error) {
         console.log("Delete error:", error);
     }
+}
+function logout(){
+
+    localStorage.removeItem("loggedIn");
+
+    window.location.href = "login.html";
 }
