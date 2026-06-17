@@ -96,3 +96,96 @@ async function loadDoctors() {
 }
 
 loadDoctors();
+// Load Patients into Dropdown
+async function loadPatientDropdown() {
+    const res = await fetch("http://localhost:3000/patients");
+    const data = await res.json();
+
+    const patientSelect = document.getElementById("patient");
+
+    if (!patientSelect) return;
+
+    patientSelect.innerHTML =
+        '<option value="">Select Patient</option>';
+
+    data.forEach(patient => {
+        patientSelect.innerHTML += `
+            <option value="${patient.id}">
+                ${patient.name}
+            </option>
+        `;
+    });
+}
+
+// Load Doctors into Dropdown
+async function loadDoctorDropdown() {
+    const res = await fetch("http://localhost:3000/doctors");
+    const data = await res.json();
+
+    const doctorSelect = document.getElementById("doctor");
+
+    if (!doctorSelect) return;
+
+    doctorSelect.innerHTML =
+        '<option value="">Select Doctor</option>';
+
+    data.forEach(doctor => {
+        doctorSelect.innerHTML += `
+            <option value="${doctor.id}">
+                ${doctor.name}
+            </option>
+        `;
+    });
+}
+
+// Book Appointment
+document.getElementById("appointmentForm")?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const appointment = {
+        patient_id: document.getElementById("patient").value,
+        doctor_id: document.getElementById("doctor").value,
+        appointment_date: document.getElementById("appointmentDate").value
+    };
+
+    await fetch("http://localhost:3000/appointments", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(appointment)
+    });
+
+    alert("Appointment Booked");
+
+    loadAppointments();
+});
+
+// Load Appointments
+async function loadAppointments() {
+
+    const res = await fetch("http://localhost:3000/appointments");
+    const data = await res.json();
+
+    const table = document.getElementById("appointmentTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    data.forEach(app => {
+        table.innerHTML += `
+            <tr>
+                <td>${app.id}</td>
+                <td>${app.patient}</td>
+                <td>${app.doctor}</td>
+                <td>${app.appointment_date}</td>
+            </tr>
+        `;
+    });
+}
+
+loadPatientDropdown();
+loadDoctorDropdown();
+loadAppointments();
