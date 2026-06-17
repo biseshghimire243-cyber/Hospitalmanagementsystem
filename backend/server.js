@@ -114,4 +114,27 @@ app.get("/", (req, res) => {
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
+app.put("/patients/:id", (req, res) => {
 
+    const id = req.params.id;
+    const { name, age, gender, phone } = req.body;
+
+    db.query(
+        "UPDATE patients SET name=?, age=?, gender=?, phone=? WHERE id=?",
+        [name, age, gender, phone, id],
+        (err) => {
+            if (err) return res.send(err);
+            res.send("Updated");
+        }
+    );
+});
+app.delete("/patients/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    db.query("DELETE FROM patients WHERE id=?", [id], (err) => {
+        if (err) return res.send(err);
+        res.send("Deleted");
+    });
+
+});

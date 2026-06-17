@@ -37,12 +37,21 @@ async function loadPatients() {
 
     data.forEach(patient => {
         table.innerHTML += `
-            <tr>
+            
                 <td>${patient.id}</td>
                 <td>${patient.name}</td>
                 <td>${patient.age}</td>
                 <td>${patient.gender}</td>
                 <td>${patient.phone}</td>
+                <td>
+        <button onclick="editPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
+            Edit
+        </button>
+
+        <button onclick="deletePatient(${patient.id})">
+            Delete
+        </button>
+    </td>
             </tr>
         `;
     });
@@ -214,3 +223,30 @@ async function loadDashboardCounts() {
 }
 
 loadDashboardCounts();
+let editId = null;
+
+function editPatient(id, name, age, gender, phone) {
+
+    document.getElementById("name").value = name;
+    document.getElementById("age").value = age;
+    document.getElementById("gender").value = gender;
+    document.getElementById("phone").value = phone;
+
+    editId = id;
+}
+async function deletePatient(id) {
+
+    try {
+        const res = await fetch(`http://localhost:3000/patients/${id}`, {
+            method: "DELETE"
+        });
+
+        const data = await res.text();
+        console.log(data);
+
+        loadPatients();
+
+    } catch (error) {
+        console.log("Delete error:", error);
+    }
+}
