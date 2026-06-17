@@ -105,14 +105,12 @@ app.get("/appointments",(req,res)=>{
     );
 });
 
-app.listen(5000,()=>{
-    console.log("Server running on port 5000");
-});
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
-
 app.use(express.static(path.join(__dirname, "../frontend")));
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/patients.html"));
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
 });
