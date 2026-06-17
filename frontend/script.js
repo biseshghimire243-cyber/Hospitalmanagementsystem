@@ -49,3 +49,50 @@ async function loadPatients() {
 }
 
 loadPatients();
+// Add Doctor
+document.getElementById("doctorForm")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const doctor = {
+        name: document.getElementById("doctorName").value,
+        specialization: document.getElementById("specialization").value,
+        phone: document.getElementById("doctorPhone").value
+    };
+
+    await fetch("http://localhost:3000/doctors", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(doctor)
+    });
+
+    alert("Doctor Added");
+
+    loadDoctors();
+});
+
+// Load Doctors
+async function loadDoctors() {
+    const res = await fetch("http://localhost:3000/doctors");
+    const data = await res.json();
+
+    const table = document.getElementById("doctorTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    data.forEach(doctor => {
+        table.innerHTML += `
+            <tr>
+                <td>${doctor.id}</td>
+                <td>${doctor.name}</td>
+                <td>${doctor.specialization}</td>
+                <td>${doctor.phone}</td>
+            </tr>
+        `;
+    });
+}
+
+loadDoctors();
