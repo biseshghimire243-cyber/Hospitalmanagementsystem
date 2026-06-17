@@ -189,3 +189,28 @@ async function loadAppointments() {
 loadPatientDropdown();
 loadDoctorDropdown();
 loadAppointments();
+async function loadDashboardCounts() {
+
+    const patientRes = await fetch("http://localhost:3000/patients");
+    const patients = await patientRes.json();
+
+    const doctorRes = await fetch("http://localhost:3000/doctors");
+    const doctors = await doctorRes.json();
+
+    const appointmentRes = await fetch("http://localhost:3000/appointments");
+    const appointments = await appointmentRes.json();
+
+    if(document.getElementById("patientCount")){
+        document.getElementById("patientCount").innerText = patients.length;
+    }
+
+    if(document.getElementById("doctorCount")){
+        document.getElementById("doctorCount").innerText = doctors.length;
+    }
+
+    if(document.getElementById("appointmentCount")){
+        document.getElementById("appointmentCount").innerText = appointments.length;
+    }
+}
+
+loadDashboardCounts();

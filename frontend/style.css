@@ -61,3 +61,47 @@ table th {
     background: #2c3e50;
     color: white;
 }
+.sidebar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100vh;
+    background: #2c3e50;
+    padding-top: 20px;
+}
+
+.sidebar h2{
+    color: white;
+    text-align: center;
+}
+
+.sidebar a{
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+}
+
+.sidebar a:hover{
+    background: #34495e;
+}
+
+.main{
+    margin-left: 240px;
+    padding: 20px;
+}
+
+.cards{
+    display: flex;
+    gap: 20px;
+}
+
+.card{
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 220px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    text-align: center;
+}
