@@ -8,27 +8,39 @@ if (
 const API = "http://localhost:3000";
 
 // Add Patient
-document.getElementById("patientForm")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+window.addEventListener("DOMContentLoaded", () => {
 
-    const patient = {
-        name: document.getElementById("name").value,
-        age: document.getElementById("age").value,
-        gender: document.getElementById("gender").value,
-        phone: document.getElementById("phone").value
-    };
+    const form = document.getElementById("patientForm");
 
-    await fetch(`${API}/patients`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(patient)
+    if (!form) {
+        console.log("patientForm not found");
+        return;
+    }
+
+    form.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const patient = {
+            name: document.getElementById("name").value,
+            age: document.getElementById("age").value,
+            gender: document.getElementById("gender").value,
+            phone: document.getElementById("phone").value
+        };
+
+        await fetch("http://localhost:3000/patients", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(patient)
+        });
+
+        alert("Patient Added");
+
+        loadPatients();
     });
 
-    alert("Patient Added");
-
-    loadPatients();
 });
 
 // Load Patients
