@@ -153,7 +153,35 @@ app.delete("/patients/:id", (req, res) => {
     );
 });
 
+app.post("/login", (req, res) => {
+
+    const { username, password } = req.body;
+
+    db.query(
+        "SELECT * FROM users WHERE BINARY username=? AND BINARY password=?",
+        [username, password],
+        (err, result) => {
+
+            if (err) return res.status(500).json(err);
+
+            if (result.length > 0) {
+                res.json({
+                    success: true,
+                    user: result[0]
+                });
+            } else {
+                res.json({
+                    success: false
+                });
+            }
+        }
+    );
+});
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/login.html"));
+});
 // START SERVER (ALWAYS LAST)
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });

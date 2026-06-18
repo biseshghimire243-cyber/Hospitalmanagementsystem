@@ -264,3 +264,7 @@ function logout(){
 
     window.location.href = "login.html";
 }
+if(document.getElementById("loggedUser")){
+    document.getElementById("loggedUser").innerText =
+        localStorage.getItem("username");
+}
