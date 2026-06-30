@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            display:flex;
+            background:#f4f6f9;
+        }
+
+        .sidebar{
+            width:240px;
+            height:100vh;
+            background:#1e293b;
+            color:white;
+            position:fixed;
+            padding:20px;
+        }
+
+        .sidebar h2{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        .sidebar a{
+            display:block;
+            color:white;
+            text-decoration:none;
+            padding:12px;
+            margin-top:8px;
+            border-radius:8px;
+            transition:.3s;
+        }
+
+        .sidebar a:hover{
+            background:#2563eb;
+        }
+
+        .main{
+            margin-left:250px;
+            padding:30px;
+            width:100%;
+        }
+
+        h1{
+            margin-bottom:25px;
+        }
+
+        .card{
+
+            background:white;
+            border-radius:10px;
+            padding:20px;
+            margin-bottom:25px;
+            box-shadow:0 3px 10px rgba(0,0,0,.1);
+
+        }
+
+        .card h2{
+            margin-bottom:20px;
+        }
+
+        input{
+
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border:1px solid #ddd;
+            border-radius:6px;
+
+        }
+
+        button{
+
+            padding:12px 20px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            margin-top:10px;
+            color:white;
+
+        }
+
+        .blue{
+            background:#2563eb;
+        }
+
+        .green{
+            background:#16a34a;
+        }
+
+        .orange{
+            background:#ea580c;
+        }
+
+        .red{
+            background:#dc2626;
+        }
+
+        button:hover{
+            opacity:.9;
+        }
+
+        .status{
+
+            font-size:18px;
+            margin-top:15px;
+
+        }
+
+        .online{
+            color:green;
+        }
+
+        .offline{
+            color:red;
+        }
+
+        .info{
+
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+
+        }
+
+        .info-box{
+
+            background:#2563eb;
+            color:white;
+            padding:20px;
+            border-radius:10px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>🏥 MediSafe</h2>
+
+<a href="dashboard.html">🏠 Dashboard</a>
+
+<a href="patients.html">👤 Patients</a>
+
+<a href="doctors.html">👨‍⚕️ Doctors</a>
+
+<a href="appointments.html">📅 Appointments</a>
+
+<a href="settings.html">⚙ Settings</a>
+
+<a href="#" onclick="logout()">🚪 Logout</a>
+
+</div>
+
+<div class="main">
+
+<h1>⚙ System Settings</h1>
+
+<div class="info">
+
+<div class="info-box">
+
+<h3>Total Patients</h3>
+
+<h1 id="patientCount">0</h1>
+
+</div>
+
+<div class="info-box">
+
+<h3>Total Doctors</h3>
+
+<h1 id="doctorCount">0</h1>
+
+</div>
+
+<div class="info-box">
+
+<h3>Total Appointments</h3>
+
+<h1 id="appointmentCount">0</h1>
+
+</div>
+
+</div>
+
+<br>
+<div class="settings-grid">
+
+
+<div class="card">
+
+<h2>👤 Change Username</h2>
+
+<input id="newUsername" placeholder="New Username">
+
+<button class="blue" onclick="changeUsername()">
+
+Update Username
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>🔒 Change Password</h2>
+
+<input type="password" id="oldPassword" placeholder="Current Password">
+
+<input type="password" id="newPassword" placeholder="New Password">
+
+<button class="green" onclick="changePassword()">
+
+Update Password
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>🌙 Theme</h2>
+
+<button class="orange" onclick="toggleDarkMode()">
+
+Toggle Dark Mode
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>🖥 Server Status</h2>
+
+<p class="status online">
+
+🟢 Server Running
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🗄 Database Status</h2>
+
+<p class="status online">
+
+🟢 MySQL Connected
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🔄 Restart Server</h2>
+
+<button class="orange"
+
+onclick="restartServer()">
+
+Restart
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>🗑 Danger Zone</h2>
+
+<button class="red"
+
+onclick="clearDatabase()">
+
+Delete ALL Patients
+
+</button>
+
+<br><br>
+
+<button class="red"
+
+onclick="clearDoctors()">
+
+Delete ALL Doctors
+
+</button>
+
+<br><br>
+
+<button class="red"
+
+onclick="clearAppointments()">
+
+Delete ALL Appointments
+
+</button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

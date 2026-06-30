@@ -148,3 +148,53 @@ table th {
 body{
     background: #f4f6f9; /* Same dashboard background */
 }
+/* Settings Grid */
+.settings-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:25px;
+    margin-top:20px;
+}
+
+/* Cards */
+.card{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#2563eb;
+}
+
+/* Buttons */
+.card button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.card button:hover{
+    background:#1d4ed8;
+}
+
+.danger{
+    background:#dc2626 !important;
+}
+
+.danger:hover{
+    background:#991b1b !important;
+}
