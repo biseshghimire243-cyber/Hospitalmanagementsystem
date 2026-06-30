@@ -280,3 +280,76 @@ if(document.getElementById("loggedUser")){
     document.getElementById("loggedUser").innerText =
         localStorage.getItem("username");
 }
+async function loadChart() {
+
+    const patients = await fetch("http://localhost:3000/patients").then(r => r.json());
+
+    const doctors = await fetch("http://localhost:3000/doctors").then(r => r.json());
+
+    const appointments = await fetch("http://localhost:3000/appointments").then(r => r.json());
+
+    const canvas = document.getElementById("hospitalChart");
+
+    if(!canvas) return;
+
+    new Chart(canvas,{
+
+        type:"bar",
+
+        data:{
+
+            labels:[
+                "Patients",
+                "Doctors",
+                "Appointments"
+            ],
+
+            datasets:[{
+
+                label:"Hospital Records",
+
+                data:[
+                    patients.length,
+                    doctors.length,
+                    appointments.length
+                ],
+
+                backgroundColor:[
+                    "#3b82f6",
+                    "#10b981",
+                    "#f59e0b"
+                ],
+
+                borderRadius:8
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            plugins:{
+
+                legend:{
+                    display:false
+                }
+
+            },
+
+            scales:{
+
+                y:{
+                    beginAtZero:true
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+loadChart();

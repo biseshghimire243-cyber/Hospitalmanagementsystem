@@ -1,50 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital Dashboard</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
 
-<div class="sidebar">
-    <h2>🏥 HMS</h2>
+    <!-- Sidebar -->
+    <div class="sidebar">
 
-    <a href="dashboard.html">Dashboard</a>
-    <a href="patients.html">Patients</a>
-    <a href="doctors.html">Doctors</a>
-    <a href="appointments.html">Appointments</a>
-    <a href="settings.html">⚙️ Settings</a>
-    <button onclick="logout()">Logout</button>
-</div>
+        <h2>🏥 HMS</h2>
 
-<div class="main">
+        <a href="dashboard.html" class="active">📊 Dashboard</a>
+        <a href="patients.html">👤 Patients</a>
+        <a href="doctors.html">👨‍⚕️ Doctors</a>
+        <a href="appointments.html">📅 Appointments</a>
+        <a href="settings.html">⚙️ Settings</a>
 
-    <h1>Hospital Dashboard</h1>
-    <h2>Welcome, <span id="loggedUser"></span></h2>
+        <br>
 
-    <div class="cards">
+        <a href="#" onclick="logout()">🚪 Logout</a>
 
-        <div class="card">
-            <h2 id="patientCount">0</h2>
-            <p>Total Patients</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="topbar">
+
+            <div>
+                <h1>Hospital Dashboard</h1>
+                <p>Welcome,
+                    <strong>
+                        <span id="loggedUser"></span>
+                    </strong>
+                </p>
+            </div>
+
+            <div class="date-box">
+                <h3 id="currentDate"></h3>
+            </div>
+
         </div>
 
-        <div class="card">
-            <h2 id="doctorCount">0</h2>
-            <p>Total Doctors</p>
+        <!-- Statistics -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>👤 Patients</h3>
+
+                <h1 id="patientCount">0</h1>
+
+                <p>Total Registered Patients</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>👨‍⚕️ Doctors</h3>
+
+                <h1 id="doctorCount">0</h1>
+
+                <p>Total Doctors</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>📅 Appointments</h3>
+
+                <h1 id="appointmentCount">0</h1>
+
+                <p>Total Appointments</p>
+
+            </div>
+
         </div>
 
-        <div class="card">
-            <h2 id="appointmentCount">0</h2>
-            <p>Total Appointments</p>
-        </div>
+        <div class="dashboard-section">
 
+    <h2>📊 Hospital Statistics</h2>
+
+    <div class="chart-container">
+        <canvas id="hospitalChart"></canvas>
     </div>
 
 </div>
 
-<script src="script.js"></script>
+        <!-- Quick Actions -->
+
+        <div class="dashboard-section">
+
+            <h2>⚡ Quick Actions</h2>
+
+            <div class="action-buttons">
+
+                <a href="patients.html">
+                    <button>Add Patient</button>
+                </a>
+
+                <a href="doctors.html">
+                    <button>Add Doctor</button>
+                </a>
+
+                <a href="appointments.html">
+                    <button>Book Appointment</button>
+                </a>
+
+                <a href="settings.html">
+                    <button>Settings</button>
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Activity -->
+
+        <div class="dashboard-section">
+
+            <h2>📝 Recent Activity</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="recentAppointments">
+
+                    <tr>
+
+                        <td colspan="4" style="text-align:center;">
+                            No Recent Appointments
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- System Status -->
+
+        <div class="dashboard-section">
+
+            <h2>🖥 System Status</h2>
+
+            <p>🟢 Server : Running</p>
+
+            <p>🟢 Database : Connected</p>
+
+            <p>🟢 Login : Active</p>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="script.js"></script>
+
+    <script>
+
+        document.getElementById("currentDate").innerHTML =
+            new Date().toLocaleString();
+
+    </script>
 
 </body>
+
 </html>
