@@ -409,3 +409,231 @@ async function loadChart(){
 }
 
 loadChart();
+async function loadSummary(){
+
+    const patients=
+    await fetch("http://localhost:3000/patients")
+    .then(r=>r.json());
+
+    const doctors=
+    await fetch("http://localhost:3000/doctors")
+    .then(r=>r.json());
+
+    const appointments=
+    await fetch("http://localhost:3000/appointments")
+    .then(r=>r.json());
+
+    if(document.getElementById("todayPatients")){
+
+        document.getElementById("todayPatients").innerText=
+        patients.length;
+
+    }
+
+    if(document.getElementById("availableDoctors")){
+
+        document.getElementById("availableDoctors").innerText=
+        doctors.length;
+
+    }
+
+    if(document.getElementById("todayAppointments")){
+
+        document.getElementById("todayAppointments").innerText=
+        appointments.length;
+
+    }
+
+    const table=document.getElementById("recentAppointmentTable");
+
+    if(table){
+
+        table.innerHTML="";
+
+        appointments.slice(-5).reverse().forEach(app=>{
+
+            table.innerHTML+=`
+
+            <tr>
+
+                <td>${app.id}</td>
+
+                <td>${app.patient}</td>
+
+                <td>${app.doctor}</td>
+
+                <td>${app.appointment_date}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+    }
+
+}
+
+loadSummary();
+function updateClock(){
+
+    const clock=document.getElementById("liveClock");
+
+    if(!clock) return;
+
+    clock.innerHTML=new Date().toLocaleTimeString();
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+async function loadExtraDashboard(){
+
+    // Doctors
+
+    const doctorRes=await fetch("http://localhost:3000/doctors");
+
+    const doctors=await doctorRes.json();
+
+    const doctorTable=document.getElementById("topDoctors");
+
+    if(doctorTable){
+
+        doctorTable.innerHTML="";
+
+        doctors.slice(0,5).forEach(doc=>{
+
+            doctorTable.innerHTML+=`
+
+            <tr>
+
+                <td>${doc.name}</td>
+
+                <td>${doc.specialization}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+    }
+
+    // Patients
+
+    const patientRes=await fetch("http://localhost:3000/patients");
+
+    const patients=await patientRes.json();
+
+    const patientTable=document.getElementById("recentPatients");
+
+    if(patientTable){
+
+        patientTable.innerHTML="";
+
+        patients.slice(-5).reverse().forEach(p=>{
+
+            patientTable.innerHTML+=`
+
+            <tr>
+
+                <td>${p.name}</td>
+
+                <td>${p.phone}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+    }
+
+}
+
+loadExtraDashboard();
+async function loadAppointmentTrend() {
+
+    const res = await fetch("http://localhost:3000/appointments");
+    const appointments = await res.json();
+
+    const monthData = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+    appointments.forEach(app => {
+
+        const month = new Date(app.appointment_date).getMonth();
+
+        monthData[month]++;
+
+    });
+
+    const canvas = document.getElementById("appointmentTrend");
+
+    if (!canvas) return;
+
+    new Chart(canvas, {
+
+        type: "line",
+
+        data: {
+
+            labels: [
+
+                "Jan","Feb","Mar","Apr","May","Jun",
+
+                "Jul","Aug","Sep","Oct","Nov","Dec"
+
+            ],
+
+            datasets: [{
+
+                label: "Appointments",
+
+                data: monthData,
+
+                fill: true,
+
+                tension: 0.4,
+
+                borderColor: "#2563eb",
+
+                backgroundColor: "rgba(37,99,235,0.2)",
+
+                pointRadius: 5
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+
+                    display: true
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+loadAppointmentTrend();
