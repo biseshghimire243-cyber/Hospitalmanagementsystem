@@ -84,6 +84,9 @@ async function loadPatients() {
                 <td>${patient.gender}</td>
                 <td>${patient.phone}</td>
                 <td>
+                <button onclick="viewPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
+        👁️ View
+    </button>
 
                     <button onclick="editPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
                         Edit
@@ -666,5 +669,35 @@ const searchPatient = document.getElementById("searchPatient");
 if (searchPatient) {
 
     searchPatient.addEventListener("input", loadPatients);
+
+}
+function viewPatient(id, name, age, gender, phone){
+
+    document.getElementById("viewId").innerText = id;
+    document.getElementById("viewName").innerText = name;
+    document.getElementById("viewAge").innerText = age;
+    document.getElementById("viewGender").innerText = gender;
+    document.getElementById("viewPhone").innerText = phone;
+
+    document.getElementById("patientModal").style.display = "block";
+
+}
+
+function closePatient(){
+
+    document.getElementById("patientModal").style.display = "none";
+
+}
+
+// Close modal when clicking outside it
+window.onclick = function(event){
+
+    const modal = document.getElementById("patientModal");
+
+    if(event.target == modal){
+
+        modal.style.display = "none";
+
+    }
 
 }
