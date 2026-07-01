@@ -411,3 +411,32 @@ grid-template-columns:1fr;
     color:red;
 
 }
+.action-bar{
+
+    margin:20px 0;
+
+}
+
+.action-bar button{
+
+    background:#dc2626;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.action-bar button:hover{
+
+    background:#b91c1c;
+
+}

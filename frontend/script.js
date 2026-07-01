@@ -701,3 +701,63 @@ window.onclick = function(event){
     }
 
 }
+async function exportPatientPDF() {
+
+    const res = await fetch(`${API}/patients`);
+    const data = await res.json();
+
+    // Current search text
+    const search = document.getElementById("searchPatient")?.value.toLowerCase() || "";
+
+    // Export only filtered patients
+    const filteredPatients = data.filter(patient =>
+
+        patient.id.toString().includes(search) ||
+
+        patient.name.toLowerCase().includes(search) ||
+
+        patient.age.toString().includes(search) ||
+
+        patient.gender.toLowerCase().includes(search) ||
+
+        patient.phone.toLowerCase().includes(search)
+
+    );
+
+    if (filteredPatients.length === 0) {
+        alert("No patient found to export.");
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("Hospital Management System", 14, 15);
+
+    doc.setFontSize(14);
+    doc.text("Filtered Patient List", 14, 25);
+
+    const rows = [];
+
+    filteredPatients.forEach(patient => {
+
+        rows.push([
+            patient.id,
+            patient.name,
+            patient.age,
+            patient.gender,
+            patient.phone
+        ]);
+
+    });
+
+    doc.autoTable({
+        head: [["ID", "Name", "Age", "Gender", "Phone"]],
+        body: rows,
+        startY: 35
+    });
+
+    doc.save("Filtered_Patients.pdf");
+}
