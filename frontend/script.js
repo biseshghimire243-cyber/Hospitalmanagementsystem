@@ -46,6 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // Load Patients
 // Load Patients
 async function loadPatients() {
+
     const res = await fetch(`${API}/patients`);
     const data = await res.json();
 
@@ -55,7 +56,26 @@ async function loadPatients() {
 
     table.innerHTML = "";
 
-    data.forEach(patient => {
+    // Search value
+    const search = document.getElementById("searchPatient")?.value.toLowerCase() || "";
+
+    // Filter patients
+    const filteredPatients = data.filter(patient =>
+
+        patient.id.toString().includes(search) ||
+
+        patient.name.toLowerCase().includes(search) ||
+
+        patient.age.toString().includes(search) ||
+
+        patient.gender.toLowerCase().includes(search) ||
+
+        patient.phone.toLowerCase().includes(search)
+
+    );
+
+    filteredPatients.forEach(patient => {
+
         table.innerHTML += `
             <tr>
                 <td>${patient.id}</td>
@@ -64,6 +84,7 @@ async function loadPatients() {
                 <td>${patient.gender}</td>
                 <td>${patient.phone}</td>
                 <td>
+
                     <button onclick="editPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
                         Edit
                     </button>
@@ -71,10 +92,13 @@ async function loadPatients() {
                     <button onclick="deletePatient(${patient.id})">
                         Delete
                     </button>
+
                 </td>
             </tr>
         `;
+
     });
+
 }
 
 loadPatients();
@@ -637,3 +661,10 @@ async function loadAppointmentTrend() {
 }
 
 loadAppointmentTrend();
+const searchPatient = document.getElementById("searchPatient");
+
+if (searchPatient) {
+
+    searchPatient.addEventListener("input", loadPatients);
+
+}
