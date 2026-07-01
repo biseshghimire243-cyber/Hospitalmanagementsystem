@@ -221,3 +221,54 @@ body{
     height:350px !important;
 
 }
+.chart-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:25px;
+
+    margin-top:20px;
+
+}
+
+.chart-box{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+
+}
+
+.chart-box h3{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#2563eb;
+
+}
+
+.chart-box canvas{
+
+    width:100% !important;
+
+    height:350px !important;
+
+}
+
+@media(max-width:900px){
+
+.chart-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}

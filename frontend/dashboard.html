@@ -86,10 +86,26 @@
 
         <div class="dashboard-section">
 
-    <h2>📊 Hospital Statistics</h2>
+    <h2>📊 Hospital Analytics</h2>
 
-    <div class="chart-container">
-        <canvas id="hospitalChart"></canvas>
+    <div class="chart-grid">
+
+        <div class="chart-box">
+
+            <h3>Hospital Records</h3>
+
+            <canvas id="hospitalChart"></canvas>
+
+        </div>
+
+        <div class="chart-box">
+
+            <h3>Distribution</h3>
+
+            <canvas id="pieChart"></canvas>
+
+        </div>
+
     </div>
 
 </div>
@@ -175,6 +191,7 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
 
     <script src="script.js"></script>
 

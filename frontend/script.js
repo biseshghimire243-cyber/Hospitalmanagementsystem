@@ -280,75 +280,131 @@ if(document.getElementById("loggedUser")){
     document.getElementById("loggedUser").innerText =
         localStorage.getItem("username");
 }
-async function loadChart() {
+async function loadChart(){
 
-    const patients = await fetch("http://localhost:3000/patients").then(r => r.json());
+    const patients =
+    await fetch("http://localhost:3000/patients")
+    .then(r=>r.json());
 
-    const doctors = await fetch("http://localhost:3000/doctors").then(r => r.json());
+    const doctors =
+    await fetch("http://localhost:3000/doctors")
+    .then(r=>r.json());
 
-    const appointments = await fetch("http://localhost:3000/appointments").then(r => r.json());
+    const appointments =
+    await fetch("http://localhost:3000/appointments")
+    .then(r=>r.json());
 
-    const canvas = document.getElementById("hospitalChart");
+    const patientCount=patients.length;
+    const doctorCount=doctors.length;
+    const appointmentCount=appointments.length;
 
-    if(!canvas) return;
+    const barCanvas=document.getElementById("hospitalChart");
 
-    new Chart(canvas,{
+    if(barCanvas){
 
-        type:"bar",
+        new Chart(barCanvas,{
 
-        data:{
+            type:"bar",
 
-            labels:[
-                "Patients",
-                "Doctors",
-                "Appointments"
-            ],
+            data:{
 
-            datasets:[{
-
-                label:"Hospital Records",
-
-                data:[
-                    patients.length,
-                    doctors.length,
-                    appointments.length
+                labels:[
+                    "Patients",
+                    "Doctors",
+                    "Appointments"
                 ],
 
-                backgroundColor:[
-                    "#3b82f6",
-                    "#10b981",
-                    "#f59e0b"
-                ],
+                datasets:[{
 
-                borderRadius:8
+                    label:"Total Records",
 
-            }]
+                    data:[
+                        patientCount,
+                        doctorCount,
+                        appointmentCount
+                    ],
 
-        },
+                    backgroundColor:[
+                        "#3b82f6",
+                        "#10b981",
+                        "#f59e0b"
+                    ],
 
-        options:{
+                    borderRadius:10
 
-            responsive:true,
-
-            plugins:{
-
-                legend:{
-                    display:false
-                }
+                }]
 
             },
 
-            scales:{
+            options:{
 
-                y:{
-                    beginAtZero:true
+                responsive:true,
+
+                plugins:{
+
+                    legend:{
+                        display:false
+                    }
+
+                },
+
+                scales:{
+
+                    y:{
+                        beginAtZero:true
+                    }
+
                 }
 
             }
 
-        }
+        });
 
-    });
+    }
+
+    const pieCanvas=document.getElementById("pieChart");
+
+    if(pieCanvas){
+
+        new Chart(pieCanvas,{
+
+            type:"pie",
+
+            data:{
+
+                labels:[
+                    "Patients",
+                    "Doctors",
+                    "Appointments"
+                ],
+
+                datasets:[{
+
+                    data:[
+                        patientCount,
+                        doctorCount,
+                        appointmentCount
+                    ],
+
+                    backgroundColor:[
+                        "#3b82f6",
+                        "#10b981",
+                        "#f59e0b"
+                    ]
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true
+
+            }
+
+        });
+
+    }
 
 }
 
