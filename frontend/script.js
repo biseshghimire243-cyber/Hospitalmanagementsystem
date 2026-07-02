@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify(patient)
         });
 
-        alert("Patient Added");
+        showToast("✅ Patient Added");
 
         loadPatients();
     });
@@ -123,7 +123,7 @@ document.getElementById("doctorForm")?.addEventListener("submit", async (e) => {
         body: JSON.stringify(doctor)
     });
 
-    alert("Doctor Added");
+   showToast("👨‍⚕️ Doctor Added");
 
     loadDoctors();
 });
@@ -213,7 +213,7 @@ document.getElementById("appointmentForm")?.addEventListener("submit", async (e)
         body: JSON.stringify(appointment)
     });
 
-    alert("Appointment Booked");
+    showToast("📅 Appointment Booked");
 
     loadAppointments();
 });
@@ -760,4 +760,23 @@ async function exportPatientPDF() {
     });
 
     doc.save("Filtered_Patients.pdf");
+}
+function showToast(message,type="success"){
+
+    const toast=document.getElementById("toast");
+
+    if(!toast) return;
+
+    toast.className=type;
+
+    toast.innerHTML=message;
+
+    toast.style.display="block";
+
+    setTimeout(()=>{
+
+        toast.style.display="none";
+
+    },3000);
+
 }

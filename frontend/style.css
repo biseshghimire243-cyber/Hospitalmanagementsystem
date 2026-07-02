@@ -440,3 +440,68 @@ grid-template-columns:1fr;
     background:#b91c1c;
 
 }
+#toast{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    min-width:260px;
+
+    padding:15px 20px;
+
+    border-radius:10px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    display:none;
+
+    z-index:9999;
+
+    animation:slideIn .4s;
+
+}
+
+.success{
+
+    background:#16a34a;
+
+}
+
+.error{
+
+    background:#dc2626;
+
+}
+
+.warning{
+
+    background:#f59e0b;
+
+}
+
+@keyframes slideIn{
+
+    from{
+
+        transform:translateX(100%);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateX(0);
+
+        opacity:1;
+
+    }
+
+}
