@@ -3,10 +3,47 @@ const mysql = require("mysql");
 const path = require("path");
 const cors = require("cors");
 
+const multer = require("multer");
+const fs = require("fs");
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// ============================
+// Patient Photo Upload
+// ============================
+
+const uploadFolder = path.join(__dirname, "../uploads");
+
+if (!fs.existsSync(uploadFolder)) {
+    fs.mkdirSync(uploadFolder);
+}
+
+const storage = multer.diskStorage({
+
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);
+    },
+
+    filename: function (req, file, cb) {
+
+        const uniqueName =
+            Date.now() +
+            "-" +
+            file.originalname;
+
+        cb(null, uniqueName);
+
+    }
+
+});
+
+const upload = multer({
+    storage: storage
+});
 
 
 const db = mysql.createConnection({
@@ -25,17 +62,38 @@ db.connect((err)=>{
 });
 
 // Add Patient
-app.post("/patients",(req,res)=>{
-    const {name,age,gender,phone} = req.body;
+// =========================
+// Add Patient With Photo
+// =========================
+app.post("/patients", upload.single("photo"), (req, res) => {
+
+    const { name, age, gender, phone } = req.body;
+
+    let photo = "";
+
+    if (req.file) {
+        photo = req.file.filename;
+    }
 
     db.query(
-        "INSERT INTO patients(name,age,gender,phone) VALUES(?,?,?,?)",
-        [name,age,gender,phone],
-        (err,result)=>{
-            if(err) return res.send(err);
+
+        "INSERT INTO patients(name, age, gender, phone, photo) VALUES(?,?,?,?,?)",
+
+        [name, age, gender, phone, photo],
+
+        (err, result) => {
+
+            if (err) {
+                console.log(err);
+                return res.status(500).send(err);
+            }
+
             res.send("Patient Added");
+
         }
+
     );
+
 });
 
 // Get Patients

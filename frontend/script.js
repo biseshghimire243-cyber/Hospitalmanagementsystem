@@ -21,20 +21,28 @@ window.addEventListener("DOMContentLoaded", () => {
 
         e.preventDefault();
 
-        const patient = {
-            name: document.getElementById("name").value,
-            age: document.getElementById("age").value,
-            gender: document.getElementById("gender").value,
-            phone: document.getElementById("phone").value
-        };
+        const formData = new FormData();
 
-        await fetch("http://localhost:3000/patients", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(patient)
-        });
+formData.append("name", document.getElementById("name").value);
+formData.append("age", document.getElementById("age").value);
+formData.append("gender", document.getElementById("gender").value);
+formData.append("phone", document.getElementById("phone").value);
+
+const photo = document.getElementById("photo").files[0];
+
+if(photo){
+
+    formData.append("photo", photo);
+
+}
+
+await fetch(`${API}/patients`,{
+
+    method:"POST",
+
+    body:formData
+
+});
 
         showToast("✅ Patient Added");
 
