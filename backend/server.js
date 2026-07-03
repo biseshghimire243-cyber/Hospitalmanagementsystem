@@ -66,20 +66,41 @@ db.connect((err)=>{
 // Add Patient With Photo
 // =========================
 app.post("/patients", upload.single("photo"), (req, res) => {
+    console.log("BODY:", req.body);
+console.log("FILE:", req.file);
 
-    const { name, age, gender, phone } = req.body;
+    const {
+        name,
+        age,
+        gender,
+        phone,
+        blood_group,
+        email,
+        address,
+        dob,
+        emergency_contact
+    } = req.body;
 
-    let photo = "";
-
-    if (req.file) {
-        photo = req.file.filename;
-    }
+    const photo = req.file ? req.file.filename : "";
 
     db.query(
 
-        "INSERT INTO patients(name, age, gender, phone, photo) VALUES(?,?,?,?,?)",
+        `INSERT INTO patients
+        (name, age, gender, phone, photo, blood_group, email, address, dob, emergency_contact)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 
-        [name, age, gender, phone, photo],
+        [
+            name,
+            age,
+            gender,
+            phone,
+            photo,
+            blood_group,
+            email,
+            address,
+            dob,
+            emergency_contact
+        ],
 
         (err, result) => {
 
@@ -88,14 +109,13 @@ app.post("/patients", upload.single("photo"), (req, res) => {
                 return res.status(500).send(err);
             }
 
-            res.send("Patient Added");
+            res.send("Patient Added Successfully");
 
         }
 
     );
 
 });
-
 // Get Patients
 app.get("/patients",(req,res)=>{
     db.query(

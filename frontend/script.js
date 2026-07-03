@@ -27,6 +27,15 @@ formData.append("name", document.getElementById("name").value);
 formData.append("age", document.getElementById("age").value);
 formData.append("gender", document.getElementById("gender").value);
 formData.append("phone", document.getElementById("phone").value);
+formData.append("blood_group", document.getElementById("bloodGroup").value);
+
+formData.append("email", document.getElementById("email").value);
+
+formData.append("address", document.getElementById("address").value);
+
+formData.append("dob", document.getElementById("dob").value);
+
+formData.append("emergency_contact", document.getElementById("emergencyContact").value);
 
 const photo = document.getElementById("photo").files[0];
 
