@@ -27,15 +27,17 @@
         <input type="text" id="gender" placeholder="Gender" required>
         <input type="text" id="phone" placeholder="Phone" required>
 
-        <button type="submit">Add Patient</button>
-
-        <label>Patient Photo</label>
+<label>Patient Photo</label>
 
 <input
     type="file"
     id="photo"
     accept="image/*"
 >
+
+<button type="submit">
+    Add Patient
+</button>
 
     </form>
 
@@ -61,12 +63,13 @@
     <table border="1">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Phone</th>
-                <th>Action</th>
+               <th>ID</th>
+<th>Photo</th>
+<th>Name</th>
+<th>Age</th>
+<th>Gender</th>
+<th>Phone</th>
+<th>Action</th>
             </tr>
         </thead>
 
@@ -75,11 +78,20 @@
 
 </div>
 <!-- Patient Details Modal -->
+
+<br>
 <div id="patientModal" class="modal">
 
     <div class="modal-content">
 
         <span class="close" onclick="closePatient()">&times;</span>
+        <center>
+
+<img
+id="viewPhoto"
+class="profile-photo">
+
+</center>
 
         <h2>👤 Patient Details</h2>
 

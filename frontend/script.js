@@ -87,12 +87,32 @@ async function loadPatients() {
         table.innerHTML += `
             <tr>
                 <td>${patient.id}</td>
-                <td>${patient.name}</td>
-                <td>${patient.age}</td>
-                <td>${patient.gender}</td>
-                <td>${patient.phone}</td>
+
+<td>
+
+<img
+src="${API}/uploads/${patient.photo}"
+class="patient-img"
+onerror="this.src='https://via.placeholder.com/50'">
+
+</td>
+
+<td>${patient.name}</td>
+
+<td>${patient.age}</td>
+
+<td>${patient.gender}</td>
+
+<td>${patient.phone}</td>
                 <td>
-                <button onclick="viewPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
+                <button onclick="viewPatient(
+${patient.id},
+'${patient.name}',
+${patient.age},
+'${patient.gender}',
+'${patient.phone}',
+'${patient.photo}'
+)"">
         👁️ View
     </button>
 
@@ -679,7 +699,7 @@ if (searchPatient) {
     searchPatient.addEventListener("input", loadPatients);
 
 }
-function viewPatient(id, name, age, gender, phone){
+function viewPatient(id, name, age, gender, phone, photo){
 
     document.getElementById("viewId").innerText = id;
     document.getElementById("viewName").innerText = name;
