@@ -73,10 +73,8 @@ async function loadPatients() {
 
     table.innerHTML = "";
 
-    // Search value
     const search = document.getElementById("searchPatient")?.value.toLowerCase() || "";
 
-    // Filter patients
     const filteredPatients = data.filter(patient =>
 
         patient.id.toString().includes(search) ||
@@ -94,47 +92,73 @@ async function loadPatients() {
     filteredPatients.forEach(patient => {
 
         table.innerHTML += `
-            <tr>
-                <td>${patient.id}</td>
 
-<td>
+        <tr>
 
-<img
-src="${API}/uploads/${patient.photo}"
-class="patient-img"
-onerror="this.src='https://via.placeholder.com/50'">
+            <td>${patient.id}</td>
 
-</td>
+            <td>
+                <img
+                    src="${patient.photo ? `${API}/uploads/${patient.photo}` : 'images/default-avatar.png'}"
+                    class="patient-img"
+                    onerror="this.src='images/default-avatar.png'"
+                >
+            </td>
 
-<td>${patient.name}</td>
+            <td>${patient.name}</td>
 
-<td>${patient.age}</td>
+            <td>${patient.age}</td>
 
-<td>${patient.gender}</td>
+            <td>${patient.gender}</td>
 
-<td>${patient.phone}</td>
-                <td>
+            <td>${patient.blood_group || "-"}</td>
+
+            <td>${patient.phone}</td>
+
+            <td>${patient.email || "-"}</td>
+
+            <td>${patient.emergency_contact || "-"}</td>
+
+            <td>${patient.address || "-"}</td>
+
+            <td>${patient.dob || "-"}</td>
+
+            <td>
+
                 <button onclick="viewPatient(
-${patient.id},
-'${patient.name}',
-${patient.age},
-'${patient.gender}',
-'${patient.phone}',
-'${patient.photo}'
-)"">
-        👁️ View
-    </button>
+                    ${patient.id},
+                    '${patient.name}',
+                    ${patient.age},
+                    '${patient.gender}',
+                    '${patient.phone}',
+                    '${patient.photo}',
+                    '${patient.blood_group || ""}',
+                    '${patient.dob || ""}',
+                    '${patient.email || ""}',
+                    '${patient.emergency_contact || ""}',
+                    '${patient.address || ""}'
+                )">
+                    👁 View
+                </button>
 
-                    <button onclick="editPatient(${patient.id}, '${patient.name}', ${patient.age}, '${patient.gender}', '${patient.phone}')">
-                        Edit
-                    </button>
+                <button onclick="editPatient(
+                    ${patient.id},
+                    '${patient.name}',
+                    ${patient.age},
+                    '${patient.gender}',
+                    '${patient.phone}'
+                )">
+                    ✏ Edit
+                </button>
 
-                    <button onclick="deletePatient(${patient.id})">
-                        Delete
-                    </button>
+                <button onclick="deletePatient(${patient.id})">
+                    🗑 Delete
+                </button>
 
-                </td>
-            </tr>
+            </td>
+
+        </tr>
+
         `;
 
     });
@@ -708,7 +732,19 @@ if (searchPatient) {
     searchPatient.addEventListener("input", loadPatients);
 
 }
-function viewPatient(id, name, age, gender, phone, photo){
+function viewPatient(
+    id,
+    name,
+    age,
+    gender,
+    phone,
+    photo,
+    blood_group,
+    dob,
+    email,
+    emergency_contact,
+    address
+) {
 
     document.getElementById("viewId").innerText = id;
     document.getElementById("viewName").innerText = name;
@@ -716,8 +752,16 @@ function viewPatient(id, name, age, gender, phone, photo){
     document.getElementById("viewGender").innerText = gender;
     document.getElementById("viewPhone").innerText = phone;
 
-    document.getElementById("patientModal").style.display = "block";
+    document.getElementById("viewBlood").innerText = blood_group;
+    document.getElementById("viewDob").innerText = dob;
+    document.getElementById("viewEmail").innerText = email;
+    document.getElementById("viewEmergency").innerText = emergency_contact;
+    document.getElementById("viewAddress").innerText = address;
 
+    document.getElementById("viewPhoto").src =
+        photo ? `${API}/uploads/${photo}` : "images/default-avatar.png";
+
+    document.getElementById("patientModal").style.display = "block";
 }
 
 function closePatient(){

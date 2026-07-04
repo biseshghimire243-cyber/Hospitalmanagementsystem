@@ -89,52 +89,61 @@
 </div>
     <h2>Patient List</h2>
 
-    <table border="1">
-        <thead>
-            <tr>
-               <th>ID</th>
-<th>Photo</th>
-<th>Name</th>
-<th>Age</th>
-<th>Gender</th>
-<th>Phone</th>
-<th>Action</th>
-            </tr>
-        </thead>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Blood Group</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Emergency contact</th>
+            <th>Address</th>
+            <th>Date of birth</th>
+           <th>Action</th>
+        </tr>
+    </thead>
 
-        <tbody id="patientTable"></tbody>
-    </table>
-
-</div>
+    <tbody id="patientTable"></tbody>
+</table>
 <!-- Patient Details Modal -->
 
-<br>
 <div id="patientModal" class="modal">
 
     <div class="modal-content">
 
         <span class="close" onclick="closePatient()">&times;</span>
+
         <center>
 
-<img
-id="viewPhoto"
-class="profile-photo">
+            <img id="viewPhoto" class="profile-photo">
 
-</center>
+            <h2 id="viewName"></h2>
 
-        <h2>👤 Patient Details</h2>
+        </center>
 
         <hr>
 
-        <p><b>ID:</b> <span id="viewId"></span></p>
-
-        <p><b>Name:</b> <span id="viewName"></span></p>
+        <p><b>Patient ID:</b> <span id="viewId"></span></p>
 
         <p><b>Age:</b> <span id="viewAge"></span></p>
 
         <p><b>Gender:</b> <span id="viewGender"></span></p>
 
+        <p><b>Blood Group:</b> <span id="viewBlood"></span></p>
+
+        <p><b>Date of Birth:</b> <span id="viewDob"></span></p>
+
         <p><b>Phone:</b> <span id="viewPhone"></span></p>
+
+        <p><b>Email:</b> <span id="viewEmail"></span></p>
+
+        <p><b>Emergency Contact:</b> <span id="viewEmergency"></span></p>
+
+        <p><b>Address:</b> <span id="viewAddress"></span></p>
 
     </div>
 
