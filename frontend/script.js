@@ -213,6 +213,8 @@ async function loadDoctors() {
 }
 
 loadDoctors();
+
+loadDepartmentDropdown();
 // Load Patients into Dropdown
 async function loadPatientDropdown() {
     const res = await fetch("http://localhost:3000/patients");
@@ -1002,3 +1004,30 @@ document.getElementById("searchDepartment")?.addEventListener("keyup", () => {
     loadDepartments();
 
 });
+async function loadDepartmentDropdown() {
+
+    const res = await fetch(`${API}/departments`);
+
+    const data = await res.json();
+
+    const dropdown = document.getElementById("departmentSelect");
+
+    if(!dropdown) return;
+
+    dropdown.innerHTML = `
+        <option value="">
+            Select Department
+        </option>
+    `;
+
+    data.forEach(dep=>{
+
+        dropdown.innerHTML += `
+            <option value="${dep.department_name}">
+                ${dep.department_name}
+            </option>
+        `;
+
+    });
+
+}
