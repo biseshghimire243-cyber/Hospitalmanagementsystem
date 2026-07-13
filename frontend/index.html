@@ -1,47 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Patients</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hospital Management System</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-    <nav>
-        <a href="patients.html">Patients</a>
-        <a href="doctors.html">Doctors</a>
-        <a href="appointments.html">Appointments</a>
-    </nav>
+<div class="sidebar">
 
-    <div class="container">
-        <h1>Patient Management</h1>
+    <h2>🏥 HMS</h2>
 
-        <form id="patientForm">
-            <input type="text" id="name" placeholder="Patient Name" required>
-            <input type="number" id="age" placeholder="Age" required>
-            <input type="text" id="gender" placeholder="Gender" required>
-            <input type="text" id="phone" placeholder="Phone Number" required>
+    <a href="index.html" class="active">🏠 Home</a>
 
-            <button type="submit">Add Patient</button>
-        </form>
+    <a href="dashboard.html">📊 Dashboard</a>
 
-        <h2>Patient List</h2>
+    <a href="patients.html">👤 Patients</a>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
+    <a href="doctors.html">👨‍⚕️ Doctors</a>
 
-            <tbody id="patientTable"></tbody>
-        </table>
+    <a href="appointments.html">📅 Appointments</a>
+
+    <a href="settings.html">⚙️ Settings</a>
+
+    <br>
+
+    <a href="#" onclick="logout()">🚪 Logout</a>
+
+</div>
+
+
+<div class="main">
+
+    <div class="hero">
+
+        <h1>🏥 Hospital Management System</h1>
+
+        <p class="welcome">
+
+            Welcome,
+
+            <strong>
+                <span id="loggedUser"></span>
+            </strong>
+
+        </p>
+
+        <p class="subtitle">
+
+            A complete digital solution for managing
+            Patients, Doctors and Appointments.
+
+        </p>
+
     </div>
 
-    <script src="script.js"></script>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="icon">👤</div>
+
+            <h3>Patient Management</h3>
+
+            <p>
+
+                Register patients, upload photos,
+                search records and print reports.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="icon">👨‍⚕️</div>
+
+            <h3>Doctor Management</h3>
+
+            <p>
+
+                Manage doctor information,
+                specialization and availability.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="icon">📅</div>
+
+            <h3>Appointments</h3>
+
+            <p>
+
+                Book appointments and
+                monitor patient visits.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="icon">📊</div>
+
+            <h3>Reports & Analytics</h3>
+
+            <p>
+
+                Generate reports and
+                visualize hospital statistics.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-btn">
+
+        <a href="dashboard.html">
+
+            <button class="enter-dashboard">
+
+                📊 Enter Dashboard
+
+            </button>
+
+        </a>
+
+    </div>
+
+
+    <div class="developer">
+
+        <h2>Developer</h2>
+
+        <p>
+
+            <strong>Bishesh Ghimire</strong>
+
+        </p>
+
+        <p>B.Sc. CSIT</p>
+
+        <p>Hospital Management System Project</p>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>

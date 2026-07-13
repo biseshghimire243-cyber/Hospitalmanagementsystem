@@ -23,7 +23,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("username", data.user.username);
 
-        window.location.href = "dashboard.html";
+        window.location.href = "index.html";
 
     } else {
 
