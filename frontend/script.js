@@ -1031,3 +1031,37 @@ async function loadDepartmentDropdown() {
     });
 
 }
+const consultation =
+document.getElementById("consultationFee");
+
+const medicine =
+document.getElementById("medicineFee");
+
+const lab =
+document.getElementById("labFee");
+
+const total =
+document.getElementById("totalFee");
+
+function calculateBill(){
+
+if(!consultation) return;
+
+const c =
+Number(consultation.value)||0;
+
+const m =
+Number(medicine.value)||0;
+
+const l =
+Number(lab.value)||0;
+
+total.value = c+m+l;
+
+}
+
+consultation?.addEventListener("input",calculateBill);
+
+medicine?.addEventListener("input",calculateBill);
+
+lab?.addEventListener("input",calculateBill);

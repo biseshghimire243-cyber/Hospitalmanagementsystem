@@ -188,6 +188,103 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
+// =========================
+// Add Bill
+// =========================
+
+app.post("/bills", (req, res) => {
+
+    const {
+
+        patient_id,
+        doctor_id,
+        consultation_fee,
+        medicine_fee,
+        lab_fee,
+        total,
+        payment_status
+
+    } = req.body;
+
+    db.query(
+
+        `INSERT INTO bills
+        (patient_id, doctor_id, consultation_fee,
+        medicine_fee, lab_fee, total, payment_status)
+        VALUES (?,?,?,?,?,?,?)`,
+
+        [
+
+            patient_id,
+            doctor_id,
+            consultation_fee,
+            medicine_fee,
+            lab_fee,
+            total,
+            payment_status
+
+        ],
+
+        (err, result) => {
+
+            if (err) return res.send(err);
+
+            res.send("Bill Generated");
+
+        }
+
+    );
+
+});
+// =========================
+// Get Bills
+// =========================
+
+app.get("/bills", (req, res) => {
+
+    db.query(
+
+        `SELECT
+
+        bills.id,
+
+        patients.name AS patient,
+
+        doctors.name AS doctor,
+
+        consultation_fee,
+
+        medicine_fee,
+
+        lab_fee,
+
+        total,
+
+        payment_status,
+
+        bill_date
+
+        FROM bills
+
+        JOIN patients
+        ON bills.patient_id = patients.id
+
+        JOIN doctors
+        ON bills.doctor_id = doctors.id
+
+        ORDER BY bills.id DESC`,
+
+        (err, result) => {
+
+            if (err) return res.send(err);
+
+            res.json(result);
+
+        }
+
+    );
+
+});
 
 // Update Patient
 app.put("/patients/:id", (req, res) => {
