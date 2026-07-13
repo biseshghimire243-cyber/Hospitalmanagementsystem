@@ -861,3 +861,11 @@ function showToast(message,type="success"){
     },3000);
 
 }
+function toggleSidebar(){
+
+    document
+        .getElementById("sidebar")
+        .classList
+        .toggle("active");
+
+}

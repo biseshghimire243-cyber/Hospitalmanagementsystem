@@ -633,3 +633,76 @@ border:4px solid #2563eb;
     color:#666;
 
 }
+.sidebar{
+
+    position:fixed;
+
+    left:-250px;
+
+    top:0;
+
+    width:250px;
+
+    height:100%;
+
+    background:#1565c0;
+
+    transition:.4s;
+
+    padding-top:20px;
+
+    z-index:1000;
+
+}
+
+.sidebar.active{
+
+    left:0;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    color:white;
+
+    padding:15px 20px;
+
+    text-decoration:none;
+
+}
+
+.sidebar a:hover{
+
+    background:#0d47a1;
+
+}
+
+.top-navbar{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:0 25px;
+
+    background:white;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+
+}
+
+.menu-btn{
+
+    font-size:35px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
