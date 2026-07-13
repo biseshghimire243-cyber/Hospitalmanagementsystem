@@ -88,8 +88,9 @@ table th {
 }
 
 .main{
-    margin-left: 240px;
-    padding: 20px;
+    margin-left:0;
+    padding:30px;
+    transition:0.3s;
 }
 
 .cards{
