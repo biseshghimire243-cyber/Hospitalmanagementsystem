@@ -1065,3 +1065,347 @@ consultation?.addEventListener("input",calculateBill);
 medicine?.addEventListener("input",calculateBill);
 
 lab?.addEventListener("input",calculateBill);
+async function loadBillPatients() {
+
+    const res = await fetch(`${API}/patients`);
+    const patients = await res.json();
+
+    const dropdown = document.getElementById("billPatient");
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = `
+        <option value="">Select Patient</option>
+    `;
+
+    patients.forEach(patient => {
+
+        dropdown.innerHTML += `
+            <option value="${patient.id}">
+                ${patient.name}
+            </option>
+        `;
+
+    });
+
+}
+async function loadBillDoctors() {
+
+    const res = await fetch(`${API}/doctors`);
+    const doctors = await res.json();
+
+    const dropdown = document.getElementById("billDoctor");
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = `
+        <option value="">Select Doctor</option>
+    `;
+
+    doctors.forEach(doctor => {
+
+        dropdown.innerHTML += `
+            <option value="${doctor.id}">
+                ${doctor.name}
+            </option>
+        `;
+
+    });
+
+}
+if (window.location.pathname.includes("billing.html")) {
+
+    loadBillPatients();
+
+    loadBillDoctors();
+
+}
+// ===========================
+// BILLING MODULE
+// ===========================
+
+const billForm = document.getElementById("billForm");
+
+billForm?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const bill = {
+
+        patient_id: document.getElementById("billPatient").value,
+
+        doctor_id: document.getElementById("billDoctor").value,
+
+        consultation_fee: document.getElementById("consultationFee").value,
+
+        medicine_fee: document.getElementById("medicineFee").value,
+
+        lab_fee: document.getElementById("labFee").value,
+
+        total: document.getElementById("totalFee").value,
+
+        payment_status: document.getElementById("paymentStatus").value
+
+    };
+
+    await fetch(`${API}/bills`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(bill)
+
+    });
+
+    showToast("💰 Bill Generated Successfully");
+
+    billForm.reset();
+
+    loadBillingHistory();
+
+});
+
+async function loadBillingHistory() {
+
+    const res = await fetch(`${API}/bills`);
+
+    const bills = await res.json();
+
+    const table = document.getElementById("billTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    bills.forEach(bill => {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${bill.id}</td>
+
+            <td>${bill.patient}</td>
+
+            <td>${bill.doctor}</td>
+
+            <td>Rs. ${bill.total}</td>
+
+            <td>${bill.payment_status}</td>
+
+            <td>${bill.bill_date}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+if (window.location.pathname.includes("billing.html")) {
+
+    loadBillingHistory();
+
+}
+// ======================================
+// BILLING MODULE
+// ======================================
+
+// Generate Bill
+document.getElementById("billingForm")?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const bill = {
+
+        patient_id: document.getElementById("billPatient").value,
+        doctor_id: document.getElementById("billDoctor").value,
+
+        consultation_fee: document.getElementById("consultationFee").value,
+
+        medicine_fee: document.getElementById("medicineFee").value,
+
+        lab_fee: document.getElementById("labFee").value,
+
+        total: document.getElementById("totalFee").value,
+
+        payment_status: document.getElementById("paymentStatus").value
+
+    };
+
+    const res = await fetch(`${API}/bills`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(bill)
+
+    });
+
+    const msg = await res.text();
+
+    showToast(msg);
+
+    document.getElementById("billingForm").reset();
+
+    calculateBill();
+
+    loadBills();
+
+});
+
+
+// Load Billing History
+async function loadBills() {
+
+    const table = document.getElementById("billTable");
+
+    if (!table) return;
+
+    const res = await fetch(`${API}/bills`);
+
+    const bills = await res.json();
+
+    table.innerHTML = "";
+
+    bills.forEach(bill => {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${bill.id}</td>
+
+            <td>${bill.patient}</td>
+
+            <td>${bill.doctor}</td>
+
+            <td>Rs. ${bill.total}</td>
+
+            <td>${bill.payment_status}</td>
+
+            <td>${bill.bill_date}</td>
+
+            <td>
+
+                <button>🖨 Print</button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+if(window.location.pathname.includes("billing.html")){
+
+    loadBills();
+
+}
+// =============================
+// Generate Bill
+// =============================
+
+document.getElementById("billForm")?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const bill = {
+
+        patient_id: document.getElementById("billPatient").value,
+
+        doctor_id: document.getElementById("billDoctor").value,
+
+        consultation_fee: document.getElementById("consultationFee").value,
+
+        medicine_fee: document.getElementById("medicineFee").value,
+
+        lab_fee: document.getElementById("labFee").value,
+
+        total: document.getElementById("totalFee").value,
+
+        payment_status: document.getElementById("paymentStatus").value
+
+    };
+
+    const res = await fetch(`${API}/bills`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(bill)
+
+    });
+
+    const msg = await res.text();
+
+    alert(msg);
+
+    loadBills();
+
+});
+// =============================
+// Load Bills
+// =============================
+
+async function loadBills(){
+
+    const res = await fetch(`${API}/bills`);
+
+    const bills = await res.json();
+
+    const table = document.getElementById("billTable");
+
+    if(!table) return;
+
+    table.innerHTML = "";
+
+    bills.forEach(bill=>{
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${bill.id}</td>
+
+            <td>${bill.patient}</td>
+
+            <td>${bill.doctor}</td>
+
+            <td>Rs. ${bill.total}</td>
+
+            <td>${bill.payment_status}</td>
+
+            <td>${bill.bill_date}</td>
+
+            <td>
+
+                <button onclick="alert('Print feature coming soon')">
+
+                    🖨 Print
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+loadBills();
