@@ -869,3 +869,136 @@ function toggleSidebar(){
         .toggle("active");
 
 }
+// ===================================
+// DEPARTMENTS MODULE
+// ===================================
+
+if (window.location.pathname.includes("departments.html")) {
+
+    loadDepartments();
+
+    const form = document.getElementById("departmentForm");
+
+    form.addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const department = {
+            department_name: document.getElementById("departmentName").value,
+            head_doctor: document.getElementById("headDoctor").value,
+            description: document.getElementById("description").value,
+            status: document.getElementById("status").value
+        };
+
+        await fetch(`${API}/departments`, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(department)
+
+        });
+
+        alert("Department Added Successfully ✅");
+
+        form.reset();
+
+        loadDepartments();
+
+    });
+
+}
+async function loadDepartments() {
+
+    const res = await fetch(`${API}/departments`);
+
+    const data = await res.json();
+
+    const table = document.getElementById("departmentTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    // Search text
+    const search =
+        document.getElementById("searchDepartment")?.value.toLowerCase() || "";
+
+    // Filter departments
+    const filtered = data.filter(dep =>
+
+        dep.department_name.toLowerCase().includes(search) ||
+
+        dep.head_doctor.toLowerCase().includes(search)
+
+    );
+
+    // Show only filtered departments
+    filtered.forEach(department => {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${department.id}</td>
+
+            <td>${department.department_name}</td>
+
+            <td>${department.head_doctor}</td>
+
+            <td>${department.description}</td>
+
+            <td>
+
+                <span class="${
+                    department.status === "Active"
+                    ? "status-active"
+                    : "status-inactive"
+                }">
+
+                ${department.status}
+
+                </span>
+
+            </td>
+
+            <td>
+
+                <button onclick="editDepartment(${department.id})">
+                    ✏ Edit
+                </button>
+
+                <button onclick="deleteDepartment(${department.id})">
+                    🗑 Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+async function deleteDepartment(id) {
+
+    if (!confirm("Delete this department?")) return;
+
+    await fetch(`${API}/departments/${id}`, {
+
+        method: "DELETE"
+
+    });
+
+    loadDepartments();
+
+}
+document.getElementById("searchDepartment")?.addEventListener("keyup", () => {
+
+    loadDepartments();
+
+});

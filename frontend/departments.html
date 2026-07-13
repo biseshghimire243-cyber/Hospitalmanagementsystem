@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Departments</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🏥 HMS</h2>
+
+    <a href="index.html">🏠 Home</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="patients.html">👤 Patients</a>
+    <a href="doctors.html">👨‍⚕️ Doctors</a>
+    <a href="departments.html" class="active">🏥 Departments</a>
+    <a href="appointments.html">📅 Appointments</a>
+    <a href="settings.html">⚙️ Settings</a>
+
+</div>
+
+<div class="main">
+
+<h1>🏥 Department Management</h1>
+
+<form id="departmentForm">
+
+    <input
+        type="text"
+        id="departmentName"
+        placeholder="Department Name"
+        required
+    >
+
+    <input
+        type="text"
+        id="headDoctor"
+        placeholder="Head Doctor"
+    >
+
+    <textarea
+        id="description"
+        rows="3"
+        placeholder="Department Description"
+    ></textarea>
+
+    <select id="status">
+
+        <option value="Active">
+            Active
+        </option>
+
+        <option value="Inactive">
+            Inactive
+        </option>
+
+    </select>
+
+    <button type="submit">
+
+        ➕ Add Department
+
+    </button>
+
+</form>
+
+<br>
+
+<input
+type="text"
+id="searchDepartment"
+placeholder="🔍 Search Department..."
+>
+
+<br><br>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Department</th>
+
+<th>Head Doctor</th>
+
+<th>Description</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="departmentTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

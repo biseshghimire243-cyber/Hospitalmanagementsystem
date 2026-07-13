@@ -259,6 +259,114 @@ app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
 // START SERVER (ALWAYS LAST)
+// =========================
+// ADD DEPARTMENT
+// =========================
+app.post("/departments", (req, res) => {
+
+    const {
+        department_name,
+        head_doctor,
+        description,
+        status
+    } = req.body;
+
+    db.query(
+        `INSERT INTO departments
+        (department_name, head_doctor, description, status)
+        VALUES (?, ?, ?, ?)`,
+        [
+            department_name,
+            head_doctor,
+            description,
+            status
+        ],
+        (err) => {
+
+            if (err) return res.status(500).send(err);
+
+            res.send("Department Added Successfully");
+
+        }
+    );
+
+});
+
+// =========================
+// GET DEPARTMENTS
+// =========================
+app.get("/departments", (req, res) => {
+
+    db.query(
+        "SELECT * FROM departments ORDER BY id DESC",
+        (err, result) => {
+
+            if (err) return res.status(500).send(err);
+
+            res.json(result);
+
+        }
+    );
+
+});
+
+// =========================
+// UPDATE DEPARTMENT
+// =========================
+app.put("/departments/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        department_name,
+        head_doctor,
+        description,
+        status
+    } = req.body;
+
+    db.query(
+        `UPDATE departments
+         SET department_name=?,
+             head_doctor=?,
+             description=?,
+             status=?
+         WHERE id=?`,
+        [
+            department_name,
+            head_doctor,
+            description,
+            status,
+            id
+        ],
+        (err) => {
+
+            if (err) return res.status(500).send(err);
+
+            res.send("Department Updated");
+
+        }
+    );
+
+});
+
+// =========================
+// DELETE DEPARTMENT
+// =========================
+app.delete("/departments/:id", (req, res) => {
+
+    db.query(
+        "DELETE FROM departments WHERE id=?",
+        [req.params.id],
+        (err) => {
+
+            if (err) return res.status(500).send(err);
+
+            res.send("Department Deleted");
+
+        }
+    );
+
+});
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
