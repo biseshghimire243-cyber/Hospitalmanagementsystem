@@ -1120,9 +1120,9 @@ if (window.location.pathname.includes("billing.html")) {
     loadBillDoctors();
 
 }
-// ===========================
+// =============================
 // BILLING MODULE
-// ===========================
+// =============================
 
 const billForm = document.getElementById("billForm");
 
@@ -1133,73 +1133,65 @@ billForm?.addEventListener("submit", async (e) => {
     const bill = {
 
         patient_id: document.getElementById("billPatient").value,
-
         doctor_id: document.getElementById("billDoctor").value,
-
         consultation_fee: document.getElementById("consultationFee").value,
-
         medicine_fee: document.getElementById("medicineFee").value,
-
         lab_fee: document.getElementById("labFee").value,
-
         total: document.getElementById("totalFee").value,
-
         payment_status: document.getElementById("paymentStatus").value
 
     };
 
-    await fetch(`${API}/bills`, {
+    const res = await fetch(`${API}/bills`, {
 
         method: "POST",
-
         headers: {
             "Content-Type": "application/json"
         },
-
         body: JSON.stringify(bill)
 
     });
 
-    showToast("💰 Bill Generated Successfully");
+    const msg = await res.text();
+
+    showToast(msg);
 
     billForm.reset();
 
-    loadBillingHistory();
+    calculateBill();
+
+    loadBills();
 
 });
 
-async function loadBillingHistory() {
-
-    const res = await fetch(`${API}/bills`);
-
-    const bills = await res.json();
+async function loadBills() {
 
     const table = document.getElementById("billTable");
 
     if (!table) return;
+
+    const res = await fetch(`${API}/bills`);
+
+    const bills = await res.json();
 
     table.innerHTML = "";
 
     bills.forEach(bill => {
 
         table.innerHTML += `
-
         <tr>
-
             <td>${bill.id}</td>
-
             <td>${bill.patient}</td>
-
             <td>${bill.doctor}</td>
-
             <td>Rs. ${bill.total}</td>
-
             <td>${bill.payment_status}</td>
-
             <td>${bill.bill_date}</td>
-
+            <td>
+                <button onclick="alert('Print feature coming soon')">
+                    🖨 Print
+                </button>
+            </td>
         </tr>
-
         `;
 
     });
@@ -1208,13 +1200,9 @@ async function loadBillingHistory() {
 
 if (window.location.pathname.includes("billing.html")) {
 
-    loadBillingHistory();
+    loadBills();
 
 }
-// ======================================
-// BILLING MODULE
-// ======================================
-
 // Generate Bill
 document.getElementById("billingForm")?.addEventListener("submit", async (e) => {
 
