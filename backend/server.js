@@ -558,6 +558,76 @@ app.delete("/labtests/:id", (req, res) => {
     );
 
 });
+//===========================
+// ADD MEDICINE
+//===========================
+
+app.post("/medicines",(req,res)=>{
+
+const{
+
+medicine_name,
+company,
+category,
+stock,
+price,
+expiry_date,
+description
+
+}=req.body;
+
+db.query(
+
+`INSERT INTO medicines
+(medicine_name,company,category,stock,price,expiry_date,description)
+
+VALUES(?,?,?,?,?,?,?)`,
+
+[
+medicine_name,
+company,
+category,
+stock,
+price,
+expiry_date,
+description
+],
+
+(err)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json({
+message:"Medicine Added"
+});
+
+}
+
+);
+
+});
+
+//===========================
+// GET MEDICINES
+//===========================
+
+app.get("/medicines",(req,res)=>{
+
+db.query(
+
+"SELECT * FROM medicines ORDER BY id DESC",
+
+(err,result)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json(result);
+
+}
+
+);
+
+});
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");

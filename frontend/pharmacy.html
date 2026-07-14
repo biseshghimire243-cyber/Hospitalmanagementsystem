@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Pharmacy</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🏥 HMS</h2>
+
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="patients.html">👤 Patients</a>
+    <a href="doctors.html">👨‍⚕️ Doctors</a>
+    <a href="departments.html">🏥 Departments</a>
+    <a href="appointments.html">📅 Appointments</a>
+    <a href="laboratory.html">🧪 Laboratory</a>
+    <a href="pharmacy.html" class="active">💊 Pharmacy</a>
+    <a href="billing.html">💰 Billing</a>
+    <a href="settings.html">⚙️ Settings</a>
+
+</div>
+
+<div class="main">
+
+<h1>💊 Pharmacy Management</h1>
+
+<form id="medicineForm">
+
+<input
+id="medicineName"
+placeholder="Medicine Name"
+required>
+
+<input
+id="company"
+placeholder="Company"
+required>
+
+<select id="category">
+
+<option>Pain Killer</option>
+
+<option>Antibiotic</option>
+
+<option>Vitamin</option>
+
+<option>Syrup</option>
+
+<option>Injection</option>
+
+</select>
+
+<input
+type="number"
+id="stock"
+placeholder="Stock">
+
+<input
+type="number"
+id="price"
+placeholder="Price">
+
+<input
+type="date"
+id="expiryDate">
+
+<textarea
+id="description"
+placeholder="Description"></textarea>
+
+<button type="submit">
+
+Add Medicine
+
+</button>
+
+</form>
+
+<hr>
+
+<input
+
+id="searchMedicine"
+
+placeholder="🔍 Search Medicine">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Medicine</th>
+
+<th>Company</th>
+
+<th>Category</th>
+
+<th>Stock</th>
+
+<th>Price</th>
+
+<th>Expiry</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="medicineTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
