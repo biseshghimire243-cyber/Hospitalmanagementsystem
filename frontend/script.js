@@ -1397,3 +1397,172 @@ async function loadBills(){
 }
 
 loadBills();
+// ===================================
+// LABORATORY MODULE
+// ===================================
+
+// Load Patients
+async function loadLabPatients() {
+
+    const res = await fetch(`${API}/patients`);
+    const patients = await res.json();
+
+    const dropdown = document.getElementById("labPatient");
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = `<option value="">Select Patient</option>`;
+
+    patients.forEach(patient => {
+
+        dropdown.innerHTML += `
+            <option value="${patient.id}">
+                ${patient.name}
+            </option>
+        `;
+
+    });
+
+}
+
+// Load Doctors
+async function loadLabDoctors() {
+
+    const res = await fetch(`${API}/doctors`);
+    const doctors = await res.json();
+
+    const dropdown = document.getElementById("labDoctor");
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = `<option value="">Select Doctor</option>`;
+
+    doctors.forEach(doc => {
+
+        dropdown.innerHTML += `
+            <option value="${doc.id}">
+                ${doc.name}
+            </option>
+        `;
+
+    });
+
+}
+
+// Save Lab Test
+const labForm = document.getElementById("labForm");
+
+labForm?.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const lab = {
+
+        patient_id: document.getElementById("labPatient").value,
+
+        doctor_id: document.getElementById("labDoctor").value,
+
+        test_name: document.getElementById("testName").value,
+
+        test_date: document.getElementById("testDate").value,
+
+        result: document.getElementById("testResult").value,
+
+        status: document.getElementById("testStatus").value,
+
+        price: document.getElementById("testPrice").value
+
+    };
+
+    await fetch(`${API}/labtests`,{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(lab)
+
+    });
+
+    showToast("🧪 Laboratory Test Saved");
+
+    labForm.reset();
+
+    loadLabHistory();
+
+});
+
+// Load History
+async function loadLabHistory(){
+
+    const res = await fetch(`${API}/labtests`);
+
+    const tests = await res.json();
+
+    const table = document.getElementById("labTable");
+
+    if(!table) return;
+
+    table.innerHTML = "";
+
+    tests.forEach(test=>{
+
+        table.innerHTML += `
+        <tr>
+
+            <td>${test.id}</td>
+
+            <td>${test.patient}</td>
+
+            <td>${test.doctor}</td>
+
+            <td>${test.test_name}</td>
+
+            <td>Rs. ${test.price}</td>
+
+            <td>${test.status}</td>
+
+            <td>${test.test_date}</td>
+
+            <td>
+
+                <button onclick="deleteLab(${test.id})">
+                    🗑 Delete
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+}
+
+// Delete
+async function deleteLab(id){
+
+    if(!confirm("Delete this laboratory record?")) return;
+
+    await fetch(`${API}/labtests/${id}`,{
+
+        method:"DELETE"
+
+    });
+
+    loadLabHistory();
+
+}
+
+// Page Load
+if(window.location.pathname.includes("laboratory.html")){
+
+    loadLabPatients();
+
+    loadLabDoctors();
+
+    loadLabHistory();
+
+}
