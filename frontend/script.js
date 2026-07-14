@@ -1566,3 +1566,165 @@ if(window.location.pathname.includes("laboratory.html")){
     loadLabHistory();
 
 }
+// =====================================
+// PHARMACY MODULE
+// =====================================
+
+// Add Medicine
+const medicineForm = document.getElementById("medicineForm");
+
+medicineForm?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const medicine = {
+
+        medicine_name: document.getElementById("medicineName").value,
+
+        company: document.getElementById("company").value,
+
+        category: document.getElementById("category").value,
+
+        stock: document.getElementById("stock").value,
+
+        price: document.getElementById("price").value,
+
+        expiry_date: document.getElementById("expiryDate").value,
+
+        description: document.getElementById("description").value
+
+    };
+
+    await fetch(`${API}/medicines`, {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify(medicine)
+
+    });
+
+    showToast("💊 Medicine Added Successfully");
+
+    medicineForm.reset();
+
+    loadMedicines();
+
+});
+
+
+// Load Medicines
+async function loadMedicines(){
+
+    const res = await fetch(`${API}/medicines`);
+
+    const medicines = await res.json();
+
+    const table = document.getElementById("medicineTable");
+
+    if(!table) return;
+
+    table.innerHTML = "";
+
+    const search =
+    document.getElementById("searchMedicine")?.value.toLowerCase() || "";
+
+    medicines
+    .filter(medicine =>
+
+        medicine.medicine_name.toLowerCase().includes(search) ||
+
+        medicine.company.toLowerCase().includes(search) ||
+
+        medicine.category.toLowerCase().includes(search)
+
+    )
+
+    .forEach(medicine=>{
+
+        let status="🟢 In Stock";
+
+        if(medicine.stock<=20){
+
+            status="🟡 Low Stock";
+
+        }
+
+        if(medicine.stock==0){
+
+            status="🔴 Out of Stock";
+
+        }
+
+        table.innerHTML +=`
+
+        <tr>
+
+            <td>${medicine.id}</td>
+
+            <td>${medicine.medicine_name}</td>
+
+            <td>${medicine.company}</td>
+
+            <td>${medicine.category}</td>
+
+            <td>${medicine.stock}</td>
+
+            <td>Rs. ${medicine.price}</td>
+
+            <td>${medicine.expiry_date}</td>
+
+            <td>${status}</td>
+
+            <td>
+
+                <button onclick="deleteMedicine(${medicine.id})">
+
+                🗑 Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+// Delete Medicine
+async function deleteMedicine(id){
+
+    if(!confirm("Delete this medicine?")) return;
+
+    await fetch(`${API}/medicines/${id}`,{
+
+        method:"DELETE"
+
+    });
+
+    loadMedicines();
+
+}
+
+
+// Search
+document
+.getElementById("searchMedicine")
+?.addEventListener("keyup",loadMedicines);
+
+
+// Page Load
+if(window.location.pathname.includes("pharmacy.html")){
+
+    loadMedicines();
+
+}

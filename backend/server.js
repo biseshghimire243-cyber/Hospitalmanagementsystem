@@ -628,6 +628,30 @@ res.json(result);
 );
 
 });
+// Delete Medicine
+app.delete("/medicines/:id",(req,res)=>{
+
+    db.query(
+
+        "DELETE FROM medicines WHERE id=?",
+
+        [req.params.id],
+
+        (err)=>{
+
+            if(err) return res.status(500).json(err);
+
+            res.json({
+
+                message:"Medicine Deleted"
+
+            });
+
+        }
+
+    );
+
+});
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
