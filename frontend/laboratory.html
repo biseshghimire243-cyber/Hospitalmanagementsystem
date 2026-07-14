@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Laboratory</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🏥 HMS</h2>
+
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="patients.html">👤 Patients</a>
+    <a href="doctors.html">👨‍⚕️ Doctors</a>
+    <a href="appointments.html">📅 Appointments</a>
+    <a href="departments.html">🏥 Departments</a>
+    <a href="laboratory.html" class="active">🧪 Laboratory</a>
+    <a href="billing.html">💰 Billing</a>
+
+</div>
+
+<div class="main">
+
+<h1>🧪 Laboratory Management</h1>
+
+<form id="labForm">
+
+<label>Patient</label>
+
+<select id="labPatient" required>
+
+<option value="">Select Patient</option>
+
+</select>
+
+<label>Doctor</label>
+
+<select id="labDoctor" required>
+
+<option value="">Select Doctor</option>
+
+</select>
+
+<label>Test</label>
+
+<select id="testName" required>
+
+<option value="">Select Test</option>
+
+<option value="Complete Blood Count (CBC)">Complete Blood Count (CBC)</option>
+<option value="Blood Sugar">Blood Sugar</option>
+<option value="Urine Test">Urine Test</option>
+<option value="Liver Function Test">Liver Function Test</option>
+<option value="Kidney Function Test">Kidney Function Test</option>
+<option value="Lipid Profile">Lipid Profile</option>
+<option value="Thyroid Test">Thyroid Test</option>
+<option value="ECG">ECG</option>
+<option value="X-Ray">X-Ray</option>
+<option value="CT Scan">CT Scan</option>
+<option value="MRI">MRI</option>
+
+</select>
+
+<label>Test Date</label>
+
+<input type="date" id="testDate" required>
+
+<label>Price (Rs.)</label>
+
+<input type="number" id="testPrice" required>
+
+<label>Status</label>
+
+<select id="testStatus">
+
+<option>Pending</option>
+<option>Completed</option>
+
+</select>
+
+<label>Result</label>
+
+<textarea id="testResult" rows="4"></textarea>
+
+<button type="submit">
+
+Save Laboratory Test
+
+</button>
+
+</form>
+
+<hr>
+
+<h2>Laboratory History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Patient</th>
+<th>Doctor</th>
+<th>Test</th>
+<th>Price</th>
+<th>Status</th>
+<th>Date</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="labTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
