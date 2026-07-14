@@ -464,6 +464,100 @@ app.delete("/departments/:id", (req, res) => {
     );
 
 });
+// =========================
+// ADD LAB TEST
+// =========================
+app.post("/labtests", (req, res) => {
+
+    const {
+        patient_id,
+        doctor_id,
+        test_name,
+        test_date,
+        result,
+        status,
+        price
+    } = req.body;
+
+    db.query(
+        `INSERT INTO lab_tests
+        (patient_id, doctor_id, test_name, test_date, result, status, price)
+        VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+            patient_id,
+            doctor_id,
+            test_name,
+            test_date,
+            result,
+            status,
+            price
+        ],
+        (err) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Laboratory Test Added Successfully" });
+        }
+    );
+
+});
+
+
+// =========================
+// GET LAB TESTS
+// =========================
+app.get("/labtests", (req, res) => {
+
+    db.query(
+        `SELECT
+            lab_tests.id,
+            patients.name AS patient,
+            doctors.name AS doctor,
+            test_name,
+            test_date,
+            result,
+            status,
+            price
+
+        FROM lab_tests
+
+        JOIN patients
+        ON lab_tests.patient_id = patients.id
+
+        JOIN doctors
+        ON lab_tests.doctor_id = doctors.id
+
+        ORDER BY lab_tests.id DESC`,
+        (err, result) => {
+
+            if (err) return res.status(500).json(err);
+
+            res.json(result);
+
+        }
+    );
+
+});
+
+
+// =========================
+// DELETE LAB TEST
+// =========================
+app.delete("/labtests/:id", (req, res) => {
+
+    db.query(
+        "DELETE FROM lab_tests WHERE id=?",
+        [req.params.id],
+        (err) => {
+
+            if (err) return res.status(500).json(err);
+
+            res.json({
+                message: "Deleted Successfully"
+            });
+
+        }
+    );
+
+});
 
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
