@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Room Management</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>🏥 HMS</h2>
+
+<a href="dashboard.html">📊 Dashboard</a>
+
+<a href="patients.html">👤 Patients</a>
+
+<a href="doctors.html">👨‍⚕️ Doctors</a>
+
+<a href="departments.html">🏥 Departments</a>
+
+<a href="appointments.html">📅 Appointments</a>
+
+<a href="laboratory.html">🧪 Laboratory</a>
+
+<a href="pharmacy.html">💊 Pharmacy</a>
+
+<a href="rooms.html" class="active">🛏 Rooms</a>
+
+<a href="billing.html">💰 Billing</a>
+
+<a href="settings.html">⚙️ Settings</a>
+
+</div>
+
+<div class="main">
+
+<h1>🛏 Room Management</h1>
+
+<form id="roomForm">
+
+<input
+id="roomNumber"
+placeholder="Room Number"
+required>
+
+<input
+id="bedNumber"
+placeholder="Bed Number"
+required>
+
+<select id="roomType">
+
+<option>ICU</option>
+
+<option>General Ward</option>
+
+<option>Private Cabin</option>
+
+<option>Emergency</option>
+
+</select>
+
+<input
+id="patientName"
+placeholder="Patient Name">
+
+<select id="roomStatus">
+
+<option>Available</option>
+
+<option>Occupied</option>
+
+<option>Cleaning</option>
+
+</select>
+
+<input
+type="number"
+id="dailyCharge"
+placeholder="Daily Charge">
+
+<button>
+
+Save Room
+
+</button>
+
+</form>
+
+<hr>
+
+<input
+id="searchRoom"
+placeholder="🔍 Search Room">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Room</th>
+
+<th>Bed</th>
+
+<th>Type</th>
+
+<th>Patient</th>
+
+<th>Status</th>
+
+<th>Charge</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="roomTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
