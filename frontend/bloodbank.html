@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blood Bank</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>🏥 HMS</h2>
+
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="patients.html">👤 Patients</a>
+    <a href="doctors.html">👨‍⚕️ Doctors</a>
+    <a href="departments.html">🏥 Departments</a>
+    <a href="appointments.html">📅 Appointments</a>
+    <a href="laboratory.html">🧪 Laboratory</a>
+    <a href="pharmacy.html">💊 Pharmacy</a>
+    <a href="rooms.html">🛏 Rooms</a>
+    <a href="staff.html">👨‍⚕️ Staff</a>
+    <a href="bloodbank.html" class="active">🩸 Blood Bank</a>
+    <a href="billing.html">💰 Billing</a>
+    <a href="settings.html">⚙️ Settings</a>
+
+    <br>
+
+    <a href="#" onclick="logout()">🚪 Logout</a>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+<h1>🩸 Blood Bank Management</h1>
+
+<form id="donorForm">
+
+    <label>Donor Name</label>
+    <input
+    type="text"
+    id="donorName"
+    placeholder="Enter Donor Name"
+    required>
+
+    <label>Age</label>
+    <input
+    type="number"
+    id="donorAge"
+    placeholder="Age"
+    required>
+
+    <label>Gender</label>
+    <select id="donorGender" required>
+
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+
+    </select>
+
+    <label>Blood Group</label>
+    <select id="bloodGroup" required>
+
+        <option value="">Select Blood Group</option>
+
+        <option>A+</option>
+        <option>A-</option>
+
+        <option>B+</option>
+        <option>B-</option>
+
+        <option>AB+</option>
+        <option>AB-</option>
+
+        <option>O+</option>
+        <option>O-</option>
+
+    </select>
+
+    <label>Phone</label>
+    <input
+    type="text"
+    id="donorPhone"
+    placeholder="Phone Number">
+
+    <label>Address</label>
+
+    <textarea
+    id="donorAddress"
+    rows="3"
+    placeholder="Address"></textarea>
+
+    <label>Donated Units</label>
+
+    <input
+    type="number"
+    id="donatedUnits"
+    value="1">
+
+    <label>Last Donation</label>
+
+    <input
+    type="date"
+    id="lastDonation">
+
+    <label>Status</label>
+
+    <select id="donorStatus">
+
+        <option>Available</option>
+        <option>Unavailable</option>
+
+    </select>
+
+    <button type="submit">
+
+        ➕ Add Donor
+
+    </button>
+
+</form>
+
+<hr>
+
+<h2>🩸 Donor List</h2>
+
+<input
+type="text"
+id="searchDonor"
+placeholder="🔍 Search by Name / Blood Group / Phone">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Age</th>
+
+<th>Gender</th>
+
+<th>Blood</th>
+
+<th>Phone</th>
+
+<th>Units</th>
+
+<th>Last Donation</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="donorTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
