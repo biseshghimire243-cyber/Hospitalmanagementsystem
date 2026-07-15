@@ -1618,6 +1618,7 @@ medicineForm?.addEventListener("submit", async (e) => {
 });
 
 
+
 // Load Medicines
 async function loadMedicines(){
 
@@ -1726,5 +1727,152 @@ document
 if(window.location.pathname.includes("pharmacy.html")){
 
     loadMedicines();
+
+}
+// ======================================
+// ROOM MANAGEMENT MODULE
+// ======================================
+
+// Add Room
+const roomForm = document.getElementById("roomForm");
+
+roomForm?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const room = {
+
+        room_number: document.getElementById("roomNumber").value,
+        bed_number: document.getElementById("bedNumber").value,
+        room_type: document.getElementById("roomType").value,
+        patient_name: document.getElementById("patientName").value,
+        status: document.getElementById("roomStatus").value,
+        daily_charge: document.getElementById("dailyCharge").value
+
+    };
+
+    await fetch(`${API}/rooms`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(room)
+
+    });
+
+    showToast("🛏 Room Added Successfully");
+
+    roomForm.reset();
+
+    loadRooms();
+
+});
+
+
+// Load Rooms
+async function loadRooms() {
+
+    const res = await fetch(`${API}/rooms`);
+
+    const rooms = await res.json();
+
+    const table = document.getElementById("roomTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    const search =
+        document.getElementById("searchRoom")?.value.toLowerCase() || "";
+
+    rooms
+    .filter(room =>
+
+        room.room_number.toLowerCase().includes(search) ||
+
+        room.room_type.toLowerCase().includes(search) ||
+
+        room.patient_name.toLowerCase().includes(search)
+
+    )
+
+    .forEach(room => {
+
+        let badge = "";
+
+        if (room.status === "Available")
+            badge = "<span class='status-green'>🟢 Available</span>";
+
+        if (room.status === "Occupied")
+            badge = "<span class='status-red'>🔴 Occupied</span>";
+
+        if (room.status === "Cleaning")
+            badge = "<span class='status-yellow'>🟡 Cleaning</span>";
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${room.id}</td>
+
+            <td>${room.room_number}</td>
+
+            <td>${room.bed_number}</td>
+
+            <td>${room.room_type}</td>
+
+            <td>${room.patient_name || "-"}</td>
+
+            <td>${badge}</td>
+
+            <td>Rs. ${room.daily_charge}</td>
+
+            <td>
+
+                <button onclick="deleteRoom(${room.id})">
+
+                    🗑 Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+// Delete Room
+async function deleteRoom(id) {
+
+    if (!confirm("Delete this room?")) return;
+
+    await fetch(`${API}/rooms/${id}`, {
+
+        method: "DELETE"
+
+    });
+
+    loadRooms();
+
+}
+
+
+// Search
+document.getElementById("searchRoom")
+?.addEventListener("keyup", loadRooms);
+
+
+// Page Load
+if (window.location.pathname.includes("rooms.html")) {
+
+    loadRooms();
 
 }
