@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Staff Management</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>🏥 HMS</h2>
+
+<a href="dashboard.html">📊 Dashboard</a>
+<a href="patients.html">👤 Patients</a>
+<a href="doctors.html">👨‍⚕️ Doctors</a>
+<a href="departments.html">🏥 Departments</a>
+<a href="appointments.html">📅 Appointments</a>
+<a href="laboratory.html">🧪 Laboratory</a>
+<a href="pharmacy.html">💊 Pharmacy</a>
+<a href="rooms.html">🛏 Rooms</a>
+<a href="staff.html" class="active">👨‍⚕️ Staff</a>
+<a href="billing.html">💰 Billing</a>
+<a href="settings.html">⚙️ Settings</a>
+
+</div>
+
+<div class="main">
+
+<h1>👨‍⚕️ Staff Management</h1>
+
+<form id="staffForm">
+
+<input id="staffName" placeholder="Full Name" required>
+
+<select id="staffRole">
+
+<option>Doctor</option>
+<option>Nurse</option>
+<option>Receptionist</option>
+<option>Pharmacist</option>
+<option>Lab Technician</option>
+
+</select>
+
+<input id="staffDepartment" placeholder="Department">
+
+<input id="staffPhone" placeholder="Phone">
+
+<input id="staffEmail" placeholder="Email">
+
+<input type="number" id="staffSalary" placeholder="Salary">
+
+<select id="staffShift">
+
+<option>Morning</option>
+<option>Evening</option>
+<option>Night</option>
+
+</select>
+
+<input type="date" id="joiningDate">
+
+<select id="staffStatus">
+
+<option>Active</option>
+<option>On Leave</option>
+<option>Inactive</option>
+
+</select>
+
+<button>Add Staff</button>
+
+</form>
+
+<hr>
+
+<input
+id="searchStaff"
+placeholder="🔍 Search Staff">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Name</th>
+<th>Role</th>
+<th>Department</th>
+<th>Phone</th>
+<th>Shift</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="staffTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
