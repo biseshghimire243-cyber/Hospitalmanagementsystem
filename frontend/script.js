@@ -2027,3 +2027,157 @@ if(window.location.pathname.includes("staff.html")){
     loadStaff();
 
 }
+// =====================================
+// BLOOD BANK MODULE
+// =====================================
+
+// Add Donor
+const donorForm = document.getElementById("donorForm");
+
+donorForm?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const donor = {
+
+        donor_name: document.getElementById("donorName").value,
+        age: document.getElementById("donorAge").value,
+        gender: document.getElementById("donorGender").value,
+        blood_group: document.getElementById("bloodGroup").value,
+        phone: document.getElementById("donorPhone").value,
+        address: document.getElementById("donorAddress").value,
+        donated_units: document.getElementById("donatedUnits").value,
+        last_donation: document.getElementById("lastDonation").value,
+        status: document.getElementById("donorStatus").value
+
+    };
+
+    await fetch(`${API}/blooddonors`, {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify(donor)
+
+    });
+
+    showToast("🩸 Donor Added Successfully");
+
+    donorForm.reset();
+
+    loadDonors();
+
+});
+
+
+// Load Donors
+async function loadDonors() {
+
+    const res = await fetch(`${API}/blooddonors`);
+
+    const donors = await res.json();
+
+    const table = document.getElementById("donorTable");
+
+    if (!table) return;
+
+    table.innerHTML = "";
+
+    const search =
+        document.getElementById("searchDonor")?.value.toLowerCase() || "";
+
+    donors
+    .filter(donor =>
+
+        donor.donor_name.toLowerCase().includes(search) ||
+
+        donor.blood_group.toLowerCase().includes(search) ||
+
+        donor.phone.toLowerCase().includes(search)
+
+    )
+
+    .forEach(donor => {
+
+        let status = "";
+
+        if (donor.status === "Available")
+            status = "<span class='status-green'>🟢 Available</span>";
+
+        if (donor.status === "Unavailable")
+            status = "<span class='status-red'>🔴 Unavailable</span>";
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${donor.id}</td>
+
+            <td>${donor.donor_name}</td>
+
+            <td>${donor.age}</td>
+
+            <td>${donor.gender}</td>
+
+            <td><b>${donor.blood_group}</b></td>
+
+            <td>${donor.phone}</td>
+
+            <td>${donor.donated_units}</td>
+
+            <td>${donor.last_donation}</td>
+
+            <td>${status}</td>
+
+            <td>
+
+                <button onclick="deleteDonor(${donor.id})">
+
+                    🗑 Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+// Delete Donor
+async function deleteDonor(id){
+
+    if(!confirm("Delete this donor?")) return;
+
+    await fetch(`${API}/blooddonors/${id}`,{
+
+        method:"DELETE"
+
+    });
+
+    loadDonors();
+
+}
+
+
+// Search
+document
+.getElementById("searchDonor")
+?.addEventListener("keyup",loadDonors);
+
+
+// Page Load
+if(window.location.pathname.includes("bloodbank.html")){
+
+    loadDonors();
+
+}
