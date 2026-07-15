@@ -750,6 +750,83 @@ message:"Deleted"
 );
 
 });
+// =============================
+// ADD STAFF
+// =============================
+app.post("/staff", (req, res) => {
+
+    const {
+        full_name,
+        role,
+        department,
+        phone,
+        email,
+        salary,
+        shift,
+        joining_date,
+        status
+    } = req.body;
+
+    db.query(
+        `INSERT INTO staff
+        (full_name, role, department, phone, email, salary, shift, joining_date, status)
+        VALUES (?,?,?,?,?,?,?,?,?)`,
+        [
+            full_name,
+            role,
+            department,
+            phone,
+            email,
+            salary,
+            shift,
+            joining_date,
+            status
+        ],
+        (err) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Staff Added" });
+        }
+    );
+});
+
+// =============================
+// GET STAFF
+// =============================
+app.get("/staff", (req, res) => {
+
+    db.query(
+        "SELECT * FROM staff ORDER BY id DESC",
+        (err, result) => {
+
+            if (err) return res.status(500).json(err);
+
+            res.json(result);
+
+        }
+    );
+
+});
+
+// =============================
+// DELETE STAFF
+// =============================
+app.delete("/staff/:id", (req, res) => {
+
+    db.query(
+        "DELETE FROM staff WHERE id=?",
+        [req.params.id],
+        (err) => {
+
+            if (err) return res.status(500).json(err);
+
+            res.json({
+                message: "Deleted Successfully"
+            });
+
+        }
+    );
+
+});
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
