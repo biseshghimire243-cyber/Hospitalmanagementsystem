@@ -827,6 +827,108 @@ app.delete("/staff/:id", (req, res) => {
     );
 
 });
+//===========================
+// ADD DONOR
+//===========================
+
+app.post("/blooddonors",(req,res)=>{
+
+const{
+
+donor_name,
+age,
+gender,
+blood_group,
+phone,
+address,
+donated_units,
+last_donation,
+status
+
+}=req.body;
+
+db.query(
+
+`INSERT INTO blood_donors
+(donor_name,age,gender,blood_group,phone,address,donated_units,last_donation,status)
+
+VALUES(?,?,?,?,?,?,?,?,?)`,
+
+[
+donor_name,
+age,
+gender,
+blood_group,
+phone,
+address,
+donated_units,
+last_donation,
+status
+],
+
+(err)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json({
+message:"Donor Added"
+});
+
+}
+
+);
+
+});
+
+
+//===========================
+// GET DONORS
+//===========================
+
+app.get("/blooddonors",(req,res)=>{
+
+db.query(
+
+"SELECT * FROM blood_donors ORDER BY id DESC",
+
+(err,result)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json(result);
+
+}
+
+);
+
+});
+
+
+//===========================
+// DELETE DONOR
+//===========================
+
+app.delete("/blooddonors/:id",(req,res)=>{
+
+db.query(
+
+"DELETE FROM blood_donors WHERE id=?",
+
+[req.params.id],
+
+(err)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json({
+message:"Deleted"
+});
+
+}
+
+);
+
+});
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
