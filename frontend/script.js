@@ -2214,6 +2214,27 @@ function analyzeSymptoms() {
     let tests="CBC";
 
     let advice="Drink plenty of water and take adequate rest.";
+    let confidence = 75;
+
+let doctor = "Dr. Ram Sharma";
+confidence = 84;
+
+doctor = "Dr. Ram Sharma";
+confidence = 88;
+
+doctor = "Dr. Hari Adhikari";
+confidence = 92;
+
+doctor = "Dr. Sita Rai";
+confidence = 80;
+
+doctor = "Dr. Prakash Nepal";
+confidence = 90;
+
+doctor = "Dr. Binod Karki";
+confidence = 98;
+
+doctor = "Dr. Rajesh Sharma";
 
     // Common Cold
     if(
@@ -2328,5 +2349,60 @@ function analyzeSymptoms() {
     document.getElementById("testResult").innerHTML=tests;
 
     document.getElementById("adviceResult").innerHTML=advice;
+    document.getElementById("doctorResult").innerHTML = doctor;
+
+document.getElementById("confidenceFill").style.width = confidence + "%";
+
+document.getElementById("confidenceFill").innerHTML = confidence + "%";
+
+}
+function bookRecommendedAppointment(){
+
+    alert("Opening Appointment Page...");
+
+    window.location.href="appointments.html";
+
+}
+async function downloadAIReport(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(20);
+
+    doc.text("AI HEALTH REPORT",20,20);
+
+    doc.setFontSize(12);
+
+    doc.text("Disease: " +
+    document.getElementById("diseaseResult").innerText,
+    20,40);
+
+    doc.text("Department: " +
+    document.getElementById("departmentResult").innerText,
+    20,55);
+
+    doc.text("Severity: " +
+    document.getElementById("severityResult").innerText,
+    20,70);
+
+    doc.text("Tests: " +
+    document.getElementById("testResult").innerText,
+    20,85);
+
+    doc.text("Doctor: " +
+    document.getElementById("doctorResult").innerText,
+    20,100);
+
+    doc.text("Advice:",20,115);
+
+    doc.text(
+        document.getElementById("adviceResult").innerText,
+        20,
+        130
+    );
+
+    doc.save("AI_Health_Report.pdf");
 
 }
