@@ -2181,3 +2181,152 @@ if(window.location.pathname.includes("bloodbank.html")){
     loadDonors();
 
 }
+// =====================================
+// AI HEALTH ASSISTANT
+// =====================================
+
+function analyzeSymptoms() {
+
+    const symptoms = [];
+
+    document
+    .querySelectorAll(".symptom-grid input:checked")
+    .forEach(item => {
+
+        symptoms.push(item.value);
+
+    });
+
+    if(symptoms.length===0){
+
+        alert("Please select at least one symptom.");
+
+        return;
+
+    }
+
+    let disease="General Checkup";
+
+    let department="General Medicine";
+
+    let severity="🟢 Mild";
+
+    let tests="CBC";
+
+    let advice="Drink plenty of water and take adequate rest.";
+
+    // Common Cold
+    if(
+        symptoms.includes("Fever") &&
+        symptoms.includes("Cough")
+    ){
+
+        disease="Common Cold";
+
+        department="General Medicine";
+
+        tests="CBC";
+
+        advice="Rest, drink warm fluids and consult a doctor if symptoms persist.";
+
+    }
+
+    // Flu
+    if(
+        symptoms.includes("Fever") &&
+        symptoms.includes("Body Pain") &&
+        symptoms.includes("Fatigue")
+    ){
+
+        disease="Influenza (Flu)";
+
+        department="General Medicine";
+
+        tests="CBC, Viral Test";
+
+        advice="Take rest, stay hydrated and visit a physician.";
+
+    }
+
+    // Food Poisoning
+    if(
+        symptoms.includes("Vomiting") &&
+        symptoms.includes("Diarrhea")
+    ){
+
+        disease="Food Poisoning";
+
+        department="Emergency";
+
+        severity="🟡 Moderate";
+
+        tests="Stool Test, CBC";
+
+        advice="Drink ORS, avoid oily food and seek medical care.";
+
+    }
+
+    // Migraine
+    if(
+        symptoms.includes("Headache") &&
+        symptoms.includes("Dizziness")
+    ){
+
+        disease="Migraine";
+
+        department="Neurology";
+
+        tests="Neurological Examination";
+
+        advice="Avoid bright lights and get proper sleep.";
+
+    }
+
+    // COVID-like Symptoms
+    if(
+        symptoms.includes("Fever") &&
+        symptoms.includes("Cough") &&
+        symptoms.includes("Breathing Difficulty")
+    ){
+
+        disease="Respiratory Infection";
+
+        department="Pulmonology";
+
+        severity="🟡 Moderate";
+
+        tests="Chest X-Ray, CBC";
+
+        advice="Wear a mask and visit the hospital immediately.";
+
+    }
+
+    // Heart Emergency
+    if(
+        symptoms.includes("Chest Pain") ||
+        symptoms.includes("Breathing Difficulty")
+    ){
+
+        disease="Possible Heart/Lung Emergency";
+
+        department="Emergency";
+
+        severity="🔴 HIGH";
+
+        tests="ECG, Troponin Test, Chest X-Ray";
+
+        advice="Go to the Emergency Department IMMEDIATELY.";
+
+    }
+
+    document.getElementById("diseaseResult").innerHTML=disease;
+
+    document.getElementById("departmentResult").innerHTML=department;
+
+    document.getElementById("severityResult").innerHTML=severity;
+
+    document.getElementById("testResult").innerHTML=tests;
+
+    document.getElementById("adviceResult").innerHTML=advice;
+
+}
