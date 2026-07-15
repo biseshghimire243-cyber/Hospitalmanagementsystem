@@ -652,7 +652,104 @@ app.delete("/medicines/:id",(req,res)=>{
     );
 
 });
+//============================
+// ADD ROOM
+//============================
 
+app.post("/rooms",(req,res)=>{
+
+const{
+
+room_number,
+room_type,
+bed_number,
+patient_name,
+status,
+daily_charge
+
+}=req.body;
+
+db.query(
+
+`INSERT INTO rooms
+(room_number,room_type,bed_number,patient_name,status,daily_charge)
+
+VALUES(?,?,?,?,?,?)`,
+
+[
+room_number,
+room_type,
+bed_number,
+patient_name,
+status,
+daily_charge
+],
+
+(err)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json({
+
+message:"Room Added"
+
+});
+
+}
+
+);
+
+});
+
+//============================
+// GET ROOMS
+//============================
+
+app.get("/rooms",(req,res)=>{
+
+db.query(
+
+"SELECT * FROM rooms ORDER BY id DESC",
+
+(err,result)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json(result);
+
+}
+
+);
+
+});
+
+//============================
+// DELETE ROOM
+//============================
+
+app.delete("/rooms/:id",(req,res)=>{
+
+db.query(
+
+"DELETE FROM rooms WHERE id=?",
+
+[req.params.id],
+
+(err)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json({
+
+message:"Deleted"
+
+});
+
+}
+
+);
+
+});
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
