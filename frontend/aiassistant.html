@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Health Assistant</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>🏥 HMS</h2>
+
+<a href="dashboard.html">📊 Dashboard</a>
+<a href="aiassistant.html" class="active">🧠 AI Health Assistant</a>
+<a href="patients.html">👤 Patients</a>
+<a href="doctors.html">👨‍⚕️ Doctors</a>
+<a href="departments.html">🏥 Departments</a>
+<a href="appointments.html">📅 Appointments</a>
+<a href="laboratory.html">🧪 Laboratory</a>
+<a href="pharmacy.html">💊 Pharmacy</a>
+<a href="rooms.html">🛏 Rooms</a>
+<a href="staff.html">👨‍⚕️ Staff</a>
+<a href="bloodbank.html">🩸 Blood Bank</a>
+<a href="billing.html">💰 Billing</a>
+
+</div>
+
+<div class="main">
+
+<h1>🧠 AI Health Assistant</h1>
+
+<div class="card">
+
+<h2>Select Symptoms</h2>
+
+<div class="symptom-grid">
+
+<label><input type="checkbox" value="Fever"> 🤒 Fever</label>
+
+<label><input type="checkbox" value="Cough"> 🤧 Cough</label>
+
+<label><input type="checkbox" value="Headache"> 🤕 Headache</label>
+
+<label><input type="checkbox" value="Body Pain"> 💪 Body Pain</label>
+
+<label><input type="checkbox" value="Vomiting"> 🤮 Vomiting</label>
+
+<label><input type="checkbox" value="Diarrhea"> 🚽 Diarrhea</label>
+
+<label><input type="checkbox" value="Chest Pain"> ❤️ Chest Pain</label>
+
+<label><input type="checkbox" value="Breathing Difficulty"> 😮‍💨 Breathing Difficulty</label>
+
+<label><input type="checkbox" value="Sore Throat"> 😷 Sore Throat</label>
+
+<label><input type="checkbox" value="Dizziness"> 😵 Dizziness</label>
+
+<label><input type="checkbox" value="Fatigue"> 😴 Fatigue</label>
+
+<label><input type="checkbox" value="Cold"> 🥶 Cold</label>
+
+</div>
+
+<br>
+
+<button onclick="analyzeSymptoms()">
+
+🔍 Analyze Symptoms
+
+</button>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>AI Analysis</h2>
+
+<p><b>Possible Disease:</b></p>
+
+<h3 id="diseaseResult">-</h3>
+
+<p><b>Recommended Department:</b></p>
+
+<h3 id="departmentResult">-</h3>
+
+<p><b>Severity:</b></p>
+
+<h3 id="severityResult">-</h3>
+
+<p><b>Recommended Tests:</b></p>
+
+<h3 id="testResult">-</h3>
+
+<p><b>Advice:</b></p>
+
+<h3 id="adviceResult">-</h3>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
