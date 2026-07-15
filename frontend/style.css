@@ -866,3 +866,36 @@ border-radius:20px;
     background:#dbeafe;
 
 }
+#diseaseResult{
+
+    color:#2563eb;
+
+    font-size:24px;
+
+}
+
+#departmentResult{
+
+    color:#16a34a;
+
+}
+
+#severityResult{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+#testResult{
+
+    color:#9333ea;
+
+}
+
+#adviceResult{
+
+    color:#ea580c;
+
+}
