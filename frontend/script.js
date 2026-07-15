@@ -1876,3 +1876,154 @@ if (window.location.pathname.includes("rooms.html")) {
     loadRooms();
 
 }
+// =====================================
+// STAFF MANAGEMENT MODULE
+// =====================================
+
+// Add Staff
+const staffForm = document.getElementById("staffForm");
+
+staffForm?.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const staff = {
+
+        full_name: document.getElementById("staffName").value,
+        role: document.getElementById("staffRole").value,
+        department: document.getElementById("staffDepartment").value,
+        phone: document.getElementById("staffPhone").value,
+        email: document.getElementById("staffEmail").value,
+        salary: document.getElementById("staffSalary").value,
+        shift: document.getElementById("staffShift").value,
+        joining_date: document.getElementById("joiningDate").value,
+        status: document.getElementById("staffStatus").value
+
+    };
+
+    await fetch(`${API}/staff`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(staff)
+
+    });
+
+    showToast("👨‍⚕️ Staff Added Successfully");
+
+    staffForm.reset();
+
+    loadStaff();
+
+});
+
+
+// Load Staff
+async function loadStaff(){
+
+    const res = await fetch(`${API}/staff`);
+
+    const data = await res.json();
+
+    const table = document.getElementById("staffTable");
+
+    if(!table) return;
+
+    table.innerHTML="";
+
+    const search =
+    document.getElementById("searchStaff")?.value.toLowerCase() || "";
+
+    data
+    .filter(emp=>
+
+        emp.full_name.toLowerCase().includes(search) ||
+
+        emp.role.toLowerCase().includes(search) ||
+
+        emp.department.toLowerCase().includes(search)
+
+    )
+
+    .forEach(emp=>{
+
+        let badge="";
+
+        if(emp.status==="Active")
+            badge="<span class='status-green'>🟢 Active</span>";
+
+        if(emp.status==="On Leave")
+            badge="<span class='status-yellow'>🟡 On Leave</span>";
+
+        if(emp.status==="Inactive")
+            badge="<span class='status-red'>🔴 Inactive</span>";
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${emp.id}</td>
+
+            <td>${emp.full_name}</td>
+
+            <td>${emp.role}</td>
+
+            <td>${emp.department}</td>
+
+            <td>${emp.phone}</td>
+
+            <td>${emp.shift}</td>
+
+            <td>${badge}</td>
+
+            <td>
+
+                <button onclick="deleteStaff(${emp.id})">
+
+                    🗑 Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+// Delete Staff
+async function deleteStaff(id){
+
+    if(!confirm("Delete this staff member?")) return;
+
+    await fetch(`${API}/staff/${id}`,{
+
+        method:"DELETE"
+
+    });
+
+    loadStaff();
+
+}
+
+
+// Search
+document
+.getElementById("searchStaff")
+?.addEventListener("keyup",loadStaff);
+
+
+// Page Load
+if(window.location.pathname.includes("staff.html")){
+
+    loadStaff();
+
+}
